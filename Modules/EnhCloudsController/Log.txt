@@ -1,0 +1,7 @@
+08/06/20, 23:51:20: FILE DELETE: /run/media/bjoern/Flightsim/X-Plane_1150/Resources/plugins/FlyWithLua/Modules/EnhCloudsController/Log.txt
+08/06/20, 23:51:20: INIT: Beginning Enhanced Cloudscapes Controller initialization
+08/06/20, 23:51:20: FILE INIT READ: /run/media/bjoern/Flightsim/X-Plane_1150/Resources/plugins/FlyWithLua/Modules/EnhCloudsController/UI_Prefs.cfg
+08/06/20, 23:51:20: FILE READ ERROR: /run/media/bjoern/Flightsim/X-Plane_1150/Resources/plugins/FlyWithLua/Modules/EnhCloudsController/UI_Prefs.cfg
+08/06/20, 23:51:20: Window Opening
+08/06/20, 23:51:20: INIT: Finished Enhanced Cloudscapes Controller initialization
+08/07/20, 00:11:50: Window Closing
