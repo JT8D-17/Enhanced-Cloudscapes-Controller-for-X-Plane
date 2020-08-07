@@ -1,4 +1,4 @@
-# Enhanced-Cloudscapes-Controller
+# Enhanced Cloudscapes Controller
 FlyWithLua-based user interface to control the "Enhanced Cloudscapes" plugin for X-Plane 11  
 
 Status: Under heavy development.
