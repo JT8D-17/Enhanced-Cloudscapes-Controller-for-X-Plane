@@ -47,21 +47,7 @@ DATAREFS (local to this module)
 
 ]]
 
----- Autopilot related datarefs
---local Is_AP_On = dataref_table("sim/cockpit2/autopilot/servos_on")								-- Autopilot servo status (boolean)
---local Airplane_Heading = dataref_table("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot") -- ??
---local AP_Heading_Dial = dataref_table("sim/cockpit2/autopilot/heading_dial_deg_mag_pilot") 		-- Autopilot magnetic heading (degrees)
---local AP_Heading_Target = dataref_table("sim/cockpit/autopilot/heading_mag")					-- Autopilot magnetic heading dial (degrees)
---local AP_Roll_Value = dataref_table("sim/cockpit2/autopilot/sync_hold_roll_deg")				-- Autopilot roll hold value (degrees)
---local AP_Pitch_Value = dataref_table("sim/cockpit2/autopilot/sync_hold_pitch_deg")				-- Autopilot pitch hold value (degrees)
 local ECC_DRef_SimPaused = dataref_table("sim/time/paused")	-- Simulator
----- Control surface datarefs
---local Rudder_Output = dataref_table("sim/cockpit2/controls/yoke_heading_ratio")					-- Rudder output (0 to 1)
---local Tail_Lock = dataref_table("sim/cockpit2/controls/tailwheel_lock_ratio")					-- Tailwheel lock ratio (0 to 1)
----- Position related datarefs
---local Vert_Speed = dataref_table("sim/flightmodel/position/vh_ind_fpm")							-- Vertical speed indication (feet per minute)
---local Altitude = dataref_table("sim/cockpit2/gauges/indicators/altitude_ft_pilot")				-- Altimeter value pilot (feet)
--- Mass and CG related datarefs
 
 --[[
 
@@ -77,7 +63,7 @@ function ECC_Init()
 	ECC_Check_Autoload = true 				--Enable autoloading status mode check
 	ECC_File_Read("PrefsFile") 				--Trigger reading the save file and writing the contents to the target table
 	if ECC_Preferences.AAA_Is_ECC_Window_Open then ECC_Window_Show() end -- If window open flag was true, build the window
-    ECC_PluginStatusNotification()
+    --ECC_PluginStatusNotification()
 	ECC_Initialized = true
 	if ECC_Initialized then print("---> "..ECC_ScriptName.." initialized.") ECC_Log_Write("INIT: Finished "..ECC_ScriptName.." initialization") end
 end
@@ -160,7 +146,7 @@ function ECC_Window_Build(ECC_Window,xpos,ypos)
     imgui.Dummy((ECC_Preferences.AAA_Window_W-15),10)
 	--[[ Window Content ]]
     --ECC_Win_LoadManager()
-    ECC_Win_CloudPrefs()
+    --ECC_Win_CloudPrefs()
 	ECC_Win_Settings()
     imgui.Dummy((ECC_Preferences.AAA_Window_W-15),10)
     ECC_Win_Notifications()
