@@ -15,14 +15,16 @@ if not SUPPORTS_FLOATING_WINDOWS then
 	print("Imgui not supported by your FlyWithLua version. Please update to the latest release")
 	return
 end
---[[ Required modules ]]
-require("EnhCloudsController/Lua/ECC_CloudPrefs")       -- Cloud preferences window
--- Generic
+--[[ Required modules,DO NOT MODIFY LOAD ORDER! ]]
+require("EnhCloudsController/Lua/ECC_Notifications")    -- Imgui Window Element: Notifications
 require("EnhCloudsController/Lua/ECC_FileIO")           -- File input/output scripts
 require("EnhCloudsController/Lua/ECC_Globals")          -- Global variables and datarefs
 require("EnhCloudsController/Lua/ECC_Helpers")          -- Helper functions
-require("EnhCloudsController/Lua/ECC_Notifications")    -- Imgui Window Element: Notifications
 require("EnhCloudsController/Lua/ECC_Settings")         -- Imgui Window Element: Settings
+require("EnhCloudsController/Lua/ECC_CloudPrefs")       -- Cloud preferences window
+
+-- Specific
+
 --[[
 
 PATHS
@@ -75,6 +77,7 @@ function ECC_Init()
 	ECC_Check_Autoload = true 				--Enable autoloading status mode check
 	ECC_File_Read("PrefsFile") 				--Trigger reading the save file and writing the contents to the target table
 	if ECC_Preferences.AAA_Is_ECC_Window_Open then ECC_Window_Show() end -- If window open flag was true, build the window
+    ECC_PluginStatusNotification()
 	ECC_Initialized = true
 	if ECC_Initialized then print("---> "..ECC_ScriptName.." initialized.") ECC_Log_Write("INIT: Finished "..ECC_ScriptName.." initialization") end
 end

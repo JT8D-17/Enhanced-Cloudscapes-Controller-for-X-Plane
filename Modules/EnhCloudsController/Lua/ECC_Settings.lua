@@ -21,7 +21,7 @@ function ECC_Win_Settings()
     --[[ Button ]]
     if ECC_Preferences.Window_Page == 0 then
         imgui.Dummy((ECC_Preferences.AAA_Window_W-15),19)
-        if imgui.Button("Preferences",(ECC_Preferences.AAA_Window_W-15),20) then ECC_Preferences.Window_Page = 1 ECC_CheckAutosave() end
+        if imgui.Button("ECC Preferences",(ECC_Preferences.AAA_Window_W-15),20) then ECC_Preferences.Window_Page = 1 ECC_CheckAutosave() end
     end
     -- [[ Page ]]
     if ECC_Preferences.Window_Page == 1 then
