@@ -126,40 +126,39 @@ function ECC_PercentToFloat(input,limitlow,limithigh)
     return output_float
 end
 -- 
-function ECC_InputElements(index,subindex,mode,unit)
-    --[[imgui.PushItemWidth(ECC_Preferences.AAA_Window_W - 155)
+function ECC_InputElements(index,subindex,mode,unit,displayformat)
+    imgui.PushItemWidth(ECC_Preferences.AAA_Window_W - 165)
     if mode == "percent" then
         -- Slider in percentage
-        local changed,buffer = imgui.SliderFloat(unit.." ",ECC_FloatToPercent(ECC_Cld_DRefs[index][1][subindex],ECC_Cld_DRefs[index][4][1],ECC_Cld_DRefs[index][4][2]),0,100,displayformat)
-        if changed then ECC_Cld_DRefs[index][1][subindex] = ECC_PercentToFloat(buffer,ECC_Cld_DRefs[index][4][1],ECC_Cld_DRefs[index][4][2]) buffer = nil end
+        local changed,buffer = imgui.SliderFloat(unit.."##"..index..subindex,ECC_FloatToPercent(ECC_Cld_DRefs[index][3][subindex],ECC_Cld_DRefs[index][6][1],ECC_Cld_DRefs[index][6][2]),0,100,displayformat)
+        if changed then ECC_Cld_DRefs[index][3][subindex] = ECC_PercentToFloat(buffer,ECC_Cld_DRefs[index][6][1],ECC_Cld_DRefs[index][6][2]) buffer = nil end
     elseif mode == "numeric" then
-        local changed,buffer = imgui.SliderFloat(unit.." ",ECC_Cld_DRefs[index][1][subindex],ECC_Cld_DRefs[index][4][1],ECC_Cld_DRefs[index][4][2],displayformat)
-        if changed then ECC_Cld_DRefs[index][1][subindex] = buffer buffer = nil end
+        local changed,buffer = imgui.SliderFloat(unit.."##"..index..subindex,ECC_Cld_DRefs[index][3][subindex],ECC_Cld_DRefs[index][6][1],ECC_Cld_DRefs[index][6][2],displayformat)
+        if changed then ECC_Cld_DRefs[index][3][subindex] = buffer buffer = nil end
     end
     imgui.PopItemWidth() imgui.SameLine()
     --
-    ]]
-    imgui.PushItemWidth(40)
+    imgui.PushItemWidth(50)
     if mode == "percent" then
-        local changed,buffer = imgui.InputText("##", ECC_FloatToPercent(ECC_Cld_DRefs[index][1][subindex],ECC_Cld_DRefs[index][4][1],ECC_Cld_DRefs[index][4][2]), 10)  
+        local changed,buffer = imgui.InputText("##"..index..subindex, ECC_FloatToPercent(ECC_Cld_DRefs[index][3][subindex],ECC_Cld_DRefs[index][6][1],ECC_Cld_DRefs[index][6][2]),9)  
         if changed and buffer ~= "" and tonumber(buffer) then
-            if tonumber(buffer) < 0 then ECC_Cld_DRefs[index][1][subindex] = ECC_PercentToFloat(0,ECC_Cld_DRefs[index][4][1],ECC_Cld_DRefs[index][4][2])
-            elseif tonumber(buffer) > 100 then ECC_Cld_DRefs[index][1][subindex] = ECC_PercentToFloat(100,ECC_Cld_DRefs[index][4][1],ECC_Cld_DRefs[index][4][2])
-            else ECC_Cld_DRefs[index][1][subindex] = ECC_PercentToFloat(tonumber(buffer),ECC_Cld_DRefs[index][4][1],ECC_Cld_DRefs[index][4][2]) end
+            if tonumber(buffer) < 0 then ECC_Cld_DRefs[index][3][subindex] = ECC_PercentToFloat(0,ECC_Cld_DRefs[index][6][1],ECC_Cld_DRefs[index][6][2])
+            elseif tonumber(buffer) > 100 then ECC_Cld_DRefs[index][3][subindex] = ECC_PercentToFloat(100,ECC_Cld_DRefs[index][6][1],ECC_Cld_DRefs[index][6][2])
+            else ECC_Cld_DRefs[index][3][subindex] = ECC_PercentToFloat(tonumber(buffer),ECC_Cld_DRefs[index][6][1],ECC_Cld_DRefs[index][6][2]) end
             buffer = nil 
-        end  
+        end
     elseif mode == "numeric" then
-        local changed,buffer = imgui.InputText("##", ECC_Cld_DRefs[index][1][subindex], 10)
+       local changed,buffer = imgui.InputText("##"..index..subindex, ECC_Cld_DRefs[index][3][subindex],9)
         if changed and buffer ~= "" and tonumber(buffer) then
-            if tonumber(buffer) < ECC_Cld_DRefs[index][4][1] then ECC_Cld_DRefs[index][1][subindex] = ECC_Cld_DRefs[index][4][1]
-            elseif tonumber(buffer) > ECC_Cld_DRefs[index][4][2] then ECC_Cld_DRefs[index][1][subindex] = ECC_Cld_DRefs[index][4][2]
-            else ECC_Cld_DRefs[index][1][subindex] = tonumber(buffer) end
+            if tonumber(buffer) < ECC_Cld_DRefs[index][6][1] then ECC_Cld_DRefs[index][3][subindex] = ECC_Cld_DRefs[index][6][1]
+            elseif tonumber(buffer) > ECC_Cld_DRefs[index][6][2] then ECC_Cld_DRefs[index][3][subindex] = ECC_Cld_DRefs[index][6][2]
+            else ECC_Cld_DRefs[index][3][subindex] = tonumber(buffer) end
             buffer = nil 
         end
     end
     imgui.SameLine() imgui.TextUnformatted(unit) imgui.SameLine()
     imgui.PopItemWidth()
-    if imgui.Button("Reset",50,20) then ECC_Cld_DRefs[index][1][subindex] = ECC_Cld_DRefs[j][3][1] end
+    if imgui.Button("Reset ##"..index..subindex,50,20) then ECC_Cld_DRefs[index][3][subindex] = ECC_Cld_DRefs[index][5][subindex] end
 end
 --[[ 
 
@@ -185,6 +184,8 @@ function ECC_Win_CloudPrefs()
     if not ECC_Cld_PluginInstalled then
         imgui.PushStyleColor(imgui.constant.Col.Text, ECC_ImguiColors[4]) imgui.TextUnformatted("\"Enchanced Cloudscapes\" plugin is not installed!") imgui.PopStyleColor()       
     else
+        --[[ Read datarefs ]]
+        ECC_AccessDref(ECC_Cld_DRefs,"read")
         --[[ Begin subwindow ]]
         if ECC_Preferences.Window_Page == 0 then
             --[[Parameter subpage dropdown selector]]
@@ -206,7 +207,7 @@ function ECC_Win_CloudPrefs()
             if ECC_Cld_Subpage == 2 then ECC_SectionParams = {5,9,"numeric","m","%.1f"} end
             if ECC_Cld_Subpage == 3 then ECC_SectionParams = {10,14,"percent","%","%.1f"} end
             if ECC_Cld_Subpage == 4 then ECC_SectionParams = {15,19,"numeric"," ","%.4f"} end
-            if ECC_Cld_Subpage == 5 then ECC_SectionParams = {20,24,"numeric"," ","%.1f"} end
+            if ECC_Cld_Subpage == 5 then ECC_SectionParams = {20,24,"numeric"," ","%.4f"} end
             if ECC_Cld_Subpage == 6 then ECC_SectionParams = {25,29,"percent","%","%.1f"} end
             if ECC_Cld_Subpage == 7 then ECC_SectionParams = {30,37,"percent","%","%.1f"} end
             -- Loop thorugh the selected section of the dataref table
@@ -214,73 +215,25 @@ function ECC_Win_CloudPrefs()
                 --imgui.PushID(j)
                 imgui.Dummy((ECC_Preferences.AAA_Window_W-15),15)
                 -- Caption
-                imgui.TextUnformatted(ECC_Cld_DRefs[j][2]..":")
+                imgui.TextUnformatted(ECC_Cld_DRefs[j][4]..":")
                 --
-                --[[if #ECC_Cld_DRefs[j][3] == 1 then
-                    -- SLIDER (inputvar, index, mode, unit)
-                    ECC_Cld_DRefs[j][1][0] = ECC_Slider(ECC_Cld_DRefs[j][1][0],j,ECC_SectionParams[3],ECC_SectionParams[4]) imgui.SameLine()
-                    -- INPUTBOX (inputvar, index, mode, unit)
-                    ECC_Cld_DRefs[j][1][0] = ECC_InputBox(ECC_Cld_DRefs[j][1][0],j,ECC_SectionParams[3],ECC_SectionParams[4]) imgui.SameLine()
-                    if imgui.Button("Reset ##"..j,50,20) then ECC_Cld_DRefs[j][1][0] = ECC_Cld_DRefs[j][3][1] end
-                end]]
-                if j < 15 or j >= 25 and j <= 31 or j >= 32 and j <= 35 or j > 36 then
-                    --ECC_InputElements(j,0,ECC_SectionParams[3],ECC_SectionParams[4])
-                else
-                    --[[local changed,buffer = imgui.InputText("100"..j, ECC_Cld_DRefs[j][1][0], 10)
-                    if changed and buffer ~= "" and tonumber(buffer) then print(buffer)
-                        if tonumber(buffer) < ECC_Cld_DRefs[j][4][1] then ECC_Cld_DRefs[j][1][0] = ECC_Cld_DRefs[j][4][1]
-                        elseif tonumber(buffer) > ECC_Cld_DRefs[j][4][2] then ECC_Cld_DRefs[j][1][0] = ECC_Cld_DRefs[j][4][2]
-                        else ECC_Cld_DRefs[j][1][0] = tonumber(buffer) end
-                        buffer = nil 
-                    end    
-                    local changed,buffer1 = imgui.InputText("101"..j, ECC_Cld_DRefs[j][1][1], 10)
-                    if changed and buffer1 ~= "" and tonumber(buffer1) then print(buffer1)
-                        if tonumber(buffer1) < ECC_Cld_DRefs[j][4][1] then ECC_Cld_DRefs[j][1][1] = ECC_Cld_DRefs[j][4][1]
-                        elseif tonumber(buffer1) > ECC_Cld_DRefs[j][4][2] then ECC_Cld_DRefs[j][1][1] = ECC_Cld_DRefs[j][4][2]
-                        else ECC_Cld_DRefs[j][1][1] = tonumber(buffer1) end
-                        buffer1 = nil 
-                    end
-                    local changed,buffer2 = imgui.InputText("102"..j, ECC_Cld_DRefs[j][1][2], 10)
-                    if changed and buffer2 ~= "" and tonumber(buffer2) then print(buffer2)
-                        if tonumber(buffer2) < ECC_Cld_DRefs[j][4][1] then ECC_Cld_DRefs[j][1][2] = ECC_Cld_DRefs[j][4][1]
-                        elseif tonumber(buffer2) > ECC_Cld_DRefs[j][4][2] then ECC_Cld_DRefs[j][1][2] = ECC_Cld_DRefs[j][4][2]
-                        else ECC_Cld_DRefs[j][1][2] = tonumber(buffer2) end
-                        buffer2 = nil 
-                    end]]
-                    
-                    
-                end
-                --[[ if #ECC_Cld_DRefs[j][3] == 3 then
-                    imgui.PushID(100+j)
-                    -- SLIDER (inputvar, index, mode, unit)
-                    ECC_Cld_DRefs[j][1][0] = ECC_Slider(ECC_Cld_DRefs[j][1][0],j,ECC_SectionParams[3],ECC_SectionParams[4]) imgui.SameLine()
-                    -- INPUTBOX (inputvar, index, mode, unit)
-                    ECC_Cld_DRefs[j][1][0] = ECC_InputBox(ECC_Cld_DRefs[j][1][0],j,ECC_SectionParams[3],ECC_SectionParams[4]) imgui.SameLine()
-                    if imgui.Button("Reset ##"..j,50,20) then ECC_Cld_DRefs[j][1][0] = ECC_Cld_DRefs[j][3][1] end
-                    imgui.PopID()
-                    imgui.PushID(101+j)
-                    -- SLIDER (inputvar, index, mode, unit)
-                    ECC_Cld_DRefs[j][1][1] = ECC_Slider(ECC_Cld_DRefs[j][1][1],j,ECC_SectionParams[3],ECC_SectionParams[4]) imgui.SameLine()
-                    -- INPUTBOX (inputvar, index, mode, unit)
-                    ECC_Cld_DRefs[j][1][1] = ECC_InputBox(ECC_Cld_DRefs[j][1][1],j,ECC_SectionParams[3],ECC_SectionParams[4]) imgui.SameLine()
-                    if imgui.Button("Reset ##"..j,50,20) then ECC_Cld_DRefs[j][1][1] = ECC_Cld_DRefs[j][3][1] end
-                    imgui.PopID()
-                    imgui.PushID(102+j)
-                    -- SLIDER (inputvar, index, mode, unit)
-                    ECC_Cld_DRefs[j][1][2] = ECC_Slider(ECC_Cld_DRefs[j][1][2],j,ECC_SectionParams[3],ECC_SectionParams[4]) imgui.SameLine()
-                    -- INPUTBOX (inputvar, index, mode, unit)
-                    ECC_Cld_DRefs[j][1][2] = ECC_InputBox(ECC_Cld_DRefs[j][1][2],j,ECC_SectionParams[3],ECC_SectionParams[4]) imgui.SameLine()
-                    if imgui.Button("Reset ##"..j,50,20) then ECC_Cld_DRefs[j][1][2] = ECC_Cld_DRefs[j][3][1] end
-                    imgui.PopID()
-                end    ]]           
+                for k=0,#ECC_Cld_DRefs[j][3] do
+                    ECC_InputElements(j,k,ECC_SectionParams[3],ECC_SectionParams[4],ECC_SectionParams[5])
+                end       
                 --Advanced: Text input for value range limit
                 if ECC_Cld_AdvMode then
-                    imgui.PushItemWidth(ECC_Preferences.AAA_Window_W - 200)
-                    --local changed,buffer = imgui.InputText("Lower Raw Value Limit ##"..j, ECC_Cld_DRefs[j][4][1], 20)
-                    --if changed and buffer ~= "" and tonumber(buffer) then ECC_Cld_DRefs[j][4][2] = tonumber(buffer) buffer = nil end
-                    --local changed,buffer = imgui.InputText("Upper Raw Value Limit ##"..j, ECC_Cld_DRefs[j][4][2], 20)
-                    --if changed and buffer ~= "" and tonumber(buffer) then ECC_Cld_DRefs[j][4][2] = tonumber(buffer) buffer = nil end
+                    imgui.TextUnformatted("Lower Raw Value Limit: ") imgui.SameLine()
+                    imgui.PushItemWidth(100)
+                    local changed,buffer = imgui.InputText("##Lo"..j, ECC_Cld_DRefs[j][6][1], 20) imgui.SameLine()
+                    if changed and buffer ~= "" and tonumber(buffer) then ECC_Cld_DRefs[j][6][1] = tonumber(buffer) buffer = nil end
                     imgui.PopItemWidth()
+                    if imgui.Button("Reset ##Lo"..j,50,20) then ECC_Cld_DRefs[j][6][1] = ECC_Cld_DRefs[j][7][1] end
+                    imgui.TextUnformatted("Upper Raw Value Limit: ") imgui.SameLine()
+                    imgui.PushItemWidth(100)
+                    local changed,buffer = imgui.InputText("##Hi"..j, ECC_Cld_DRefs[j][6][2], 20) imgui.SameLine()
+                    if changed and buffer ~= "" and tonumber(buffer) then ECC_Cld_DRefs[j][6][2] = tonumber(buffer) buffer = nil end
+                    imgui.PopItemWidth()
+                    if imgui.Button("Reset ##Hi"..j,50,20) then ECC_Cld_DRefs[j][6][2] = ECC_Cld_DRefs[j][7][2] end
                 end
                 --imgui.PopID()
             -- End loop
@@ -289,9 +242,11 @@ function ECC_Win_CloudPrefs()
         end
         imgui.Dummy((ECC_Preferences.AAA_Window_W-15),20)
         --"Advanced" button
-        local changed, newECC_Cld_AdvMode = imgui.Checkbox("Breakage Mode", ECC_Cld_AdvMode)
+        local changed, newECC_Cld_AdvMode = imgui.Checkbox("Adjust value ranges", ECC_Cld_AdvMode)
         if changed then ECC_Cld_AdvMode = newECC_Cld_AdvMode end
         --if imgui.Button("Advanced Settings",(ECC_Preferences.AAA_Window_W-15),20) then if not ECC_Cld_AdvMode then ECC_Cld_AdvMode = true else ECC_Cld_AdvMode = false end end
+        --[[ Write datarefs ]]
+        ECC_AccessDref(ECC_Cld_DRefs,"write")
     end
     imgui.Dummy((ECC_Preferences.AAA_Window_W-15),20)
 end
