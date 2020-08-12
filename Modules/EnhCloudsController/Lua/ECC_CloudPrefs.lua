@@ -9,6 +9,7 @@ Licensed under the EUPL v1.2: https://eupl.eu/
 VARIABLES (local to this module)
 
 ]]
+local ECC_PresetFile = MODULES_DIRECTORY.."EnhCloudsController/EC_Preset.cfg"
 local ECC_Cld_DRefs = { }
 local ECC_Cld_PluginInstalled = false   -- Check if cloud plugin is installed
 local ECC_Cld_Subpage = 1
@@ -19,7 +20,7 @@ local ECC_SubPageAssignments = { }
 DATAREFS (local to this module)
 
 ]]
--- Dataref table content: "1: Dref name",2: Dref size,{3: Dref value(s)},"4: Dref title",{5: Dref default values},{6: Dref value range},{7: Copy of dref value range},8: Display mode (numeric/percent),9:Display precision,10: Sub page assignment
+-- Dataref table content: "1: Dref name",2: Dref size,{3: Dref value(s)},"4: Dref title",{5: Dref default values},{6: Dref value range},{7: Copy of dref value range},8: Display mode (numeric/percent),9:Display precision,10: Sub page group
 local ECC_Cld_DRefs = {
         {"enhanced_cloudscapes/cloud_map_scale",1,{},"Cloud Map Scale",{},{0,0.00001},{},true,1,1},          -- #1 ,Default 0.000005
         {"enhanced_cloudscapes/base_noise_scale",1,{},"Base Noise Scale",{},{0,0.0001},{},true,1,1},         -- #2 ,Default 0.000025
@@ -83,13 +84,29 @@ function ECC_AccessDref(intable,mode)
         local dref = XPLMFindDataRef(intable[i][1])
         if dref ~= nil then
             if intable[i][2] == 1 then
-                if mode == "read" then intable[i][3][0] = XPLMGetDataf(dref) end
+                    --print(XPLMGetDataRefTypes(dref))
+                if mode == "read" then
+                    if XPLMGetDataRefTypes(dref) == 1 then intable[i][3][0] = XPLMGetDatai(dref) end
+                    if XPLMGetDataRefTypes(dref) == 2 then intable[i][3][0] = XPLMGetDataf(dref) end
+                    if XPLMGetDataRefTypes(dref) == 4 then intable[i][3][0] = XPLMGetDatad(dref) end
+                end
                 --print(i.." : "..intable[i][3][0]) 
-                if mode == "write" then XPLMSetDataf(dref,intable[i][3][0]) end
+                if mode == "write" then 
+                    if XPLMGetDataRefTypes(dref) == 1 then XPLMSetDatai(dref,intable[i][3][0]) end
+                    if XPLMGetDataRefTypes(dref) == 2 then XPLMSetDataf(dref,intable[i][3][0]) end
+                    if XPLMGetDataRefTypes(dref) == 4 then XPLMSetDatad(dref,intable[i][3][0]) end
+                end
             else
-                if mode == "read" then intable[i][3] = XPLMGetDatavf(dref,0,intable[i][2]) end
+                --print(XPLMGetDataRefTypes(dref))
+                if mode == "read" then 
+                    if XPLMGetDataRefTypes(dref) == 8 then intable[i][3] = XPLMGetDatavf(dref,0,intable[i][2]) end
+                    if XPLMGetDataRefTypes(dref) == 16 then intable[i][3] = XPLMGetDatavi(dref,0,intable[i][2]) end
+                end
                 --print(i.." : "..table.concat(intable[i][3],", ",0))
-                if mode == "write" then XPLMSetDatavf(dref, intable[i][3],0,intable[i][2]) end
+                if mode == "write" then 
+                    if XPLMGetDataRefTypes(dref) == 8 then XPLMSetDatavf(dref, intable[i][3],0,intable[i][2]) end
+                    if XPLMGetDataRefTypes(dref) == 16 then XPLMSetDatavi(dref, intable[i][3],0,intable[i][2]) end
+                end
             end
         end
     end
@@ -141,7 +158,7 @@ function ECC_PercentToFloat(input,limitlow,limithigh)
     output_float = (input * (limithigh - limitlow)) / 100
     return output_float
 end
--- 
+-- [[ Input elements like sliders and buttons]]
 function ECC_InputElements(index,subindex,mode,displayformat)
     imgui.PushItemWidth(ECC_Preferences.AAA_Window_W - 165)
     if mode then
@@ -178,6 +195,34 @@ function ECC_InputElements(index,subindex,mode,displayformat)
     imgui.PopItemWidth()
     if imgui.Button("Reset ##"..index..subindex,50,20) then ECC_Cld_DRefs[index][3][subindex] = ECC_Cld_DRefs[index][5][subindex] end
 end
+--[[ Delete a preset file ]]
+function ECC_PresetFileDelete()
+   os.remove(ECC_PresetFile) ECC_Notification("FILE DELETE: "..ECC_PresetFile,"Warning") 
+end
+--[[ ]]
+function ECC_PresetFileWrite()
+    ECC_Log_Write("FILE INIT WRITE: "..ECC_PresetFile)
+    local file = io.open(ECC_PresetFile, "w")
+    file:write("Enhanced Cloudscapes Controller file created/updated on ",os.date("%x, %H:%M:%S"),"\n")
+    file:write("\n")
+    --file:write("SubPage="..ECC_LM_SubPage.."\n")
+    --file:write("DispUnits,"..ECC_LM_DispUnits[1]..","..ECC_LM_DispUnits[2].."\n")
+    --[[ Write CG Limits ]]
+    --file:write("CG_Limits,"..ECC_LM_CG_Limits[1]..","..ECC_LM_CG_Limits[2]..","..ECC_LM_CG_Limits[3]..","..ECC_LM_CG_Limits[4].."\n")
+    --[[ Write Empty CG offset ]]
+    --file:write("CG_Offset,"..ECC_LM_EmptyCGOffset[1]..","..ECC_LM_EmptyCGOffset[2].."\n")
+    --[[ Write Payload Stations ]]
+    --if #ECC_LM_Stations > 0 then
+        --for b=1,#ECC_LM_Stations do
+            --file:write("PAYLOAD_STATION,")
+            --for c=1,#ECC_LM_Stations[b] do
+                --if c ~= #ECC_LM_Stations[b] then file:write(tostring(ECC_LM_Stations[b][c]),",") else file:write(tostring(ECC_LM_Stations[b][c]),"\n") end
+            --end
+        --end
+    --end
+    if file:seek("end") > 0 then ECC_Notification("FILE WRITE SUCCESS: "..ECC_PresetFile,"Success","log") else ECC_Notification("FILE WRITE ERROR: "..ECC_PresetFile,"Error","log") end
+	file:close()
+end
 --[[ 
 
 INITIALIZATION
@@ -193,6 +238,8 @@ if ECC_Cld_PluginInstalled then
     ECC_CopyDefaults(ECC_Cld_DRefs)
     -- Index number of subpages with items
     ECC_SubPageBuilder()
+    --
+    ECC_PresetFileDelete()
 end
 
 --[[
