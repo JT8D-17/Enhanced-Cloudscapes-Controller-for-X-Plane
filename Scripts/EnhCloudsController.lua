@@ -16,8 +16,8 @@ if not SUPPORTS_FLOATING_WINDOWS then
 	return
 end
 --[[ Required modules,DO NOT MODIFY LOAD ORDER! ]]
-require("EnhCloudsController/Lua/ECC_Notifications")    -- Imgui Window Element: Notifications
 require("EnhCloudsController/Lua/ECC_FileIO")           -- File input/output scripts
+require("EnhCloudsController/Lua/ECC_Notifications")    -- Imgui Window Element: Notifications
 require("EnhCloudsController/Lua/ECC_Globals")          -- Global variables and datarefs
 require("EnhCloudsController/Lua/ECC_Helpers")          -- Helper functions
 require("EnhCloudsController/Lua/ECC_Settings")         -- Imgui Window Element: Settings
