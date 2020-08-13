@@ -5,41 +5,6 @@ Licensed under the EUPL v1.2: https://eupl.eu/
 
 ]]
 --[[
-MATHEMATICAL
-]]
---[[ Converter for various units ]]
-function ECC_UnitConverter(invalue,inunit,outunit)
-	local outvalue = 0
-    -- Length
-	if inunit == "nm" and outunit == "km" then outvalue = invalue * 1.85200 end 	-- Nautical miles to kilometres
-	if inunit == "m" and outunit == "ft" then outvalue = invalue * 3.28084 end		-- Metre to foot
-    if inunit == "m" and outunit == "in" then outvalue = invalue * 39.3701 end      -- Metre to inch
-    if inunit == "m" and outunit == "cm" then outvalue = invalue * 100 end		    -- Metre to centimetre
-    if inunit == "cm" and outunit == "ft" then outvalue = invalue / 30.48 end       -- Centimetre to foot
-    if inunit == "cm" and outunit == "in" then outvalue = invalue / 2.54 end        -- Centimetre to inch
-    if inunit == "cm" and outunit == "m" then outvalue = invalue / 100 end		    -- Centimetre to metre
-    if inunit == "ft" and outunit == "m" then outvalue = invalue / 3.28084 end		-- Foot to metre
-    if inunit == "ft" and outunit == "cm" then outvalue = invalue * 30.48 end		-- Foot to centimetre
-	if inunit == "ft" and outunit == "in" then outvalue = invalue * 12 end		    -- Foot to inch
-	if inunit == "in" and outunit == "m" then outvalue = invalue / 39.3701 end	    -- Inch to metre
-	if inunit == "in" and outunit == "cm" then outvalue = invalue * 2.54 end	    -- Inch to centimetre
-	if inunit == "in" and outunit == "ft" then outvalue = invalue / 12 end	        -- Inch to foot
-    -- Mass
-	if inunit == "kg" and outunit == "lbs" then outvalue = invalue * 2.20462 end	-- Kilograms to pounds mass
-	if inunit == "lbs" and outunit == "kg" then outvalue = invalue / 2.20462 end	-- Pounds mass to kilograms
-    -- Velocity
-	if inunit == "kts" and outunit == "kph" then outvalue = invalue * 1.85200 end	-- Knots to kilometres per hour
-	if inunit == "kts" and outunit == "mph" then outvalue = invalue * 1.15078 end	-- Knots to miles per hour
-    -- No change
-    if inunit == outunit then outvalue = invalue end
-	return outvalue
-end
---[[ Round value to nearest integer ]]
-function ECC_RoundToInt(inputval,decimals)
-	local power = 10^decimals
-	return math.floor(inputval * power) / power
-end
---[[
 TABLE OPERATIONS
 ]]
 --[[ "ECC_PairsByKeys" is a table sorting function and will sort keys/parametres alphabetically. 

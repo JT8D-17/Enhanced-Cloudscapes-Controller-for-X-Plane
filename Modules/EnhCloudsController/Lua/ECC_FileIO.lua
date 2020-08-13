@@ -40,7 +40,7 @@ function ECC_ReadFileToTable(sourcefile,targettable)
 				if valtype == "boolean" then targettable[param] = ( value == "true" ) -- Checks for and sets boolean values. Credit to jjj.
 				elseif valtype == "number" then targettable[param] = tonumber(value) -- Checks for and sets number type values. Credit to jjj.
 				else targettable[param] = value end -- Interprets value as string. Credit to jjj.
-				--ECC_Log_Write("-- "..param.." = "..value)
+				ECC_Log_Write("-- "..param.." = "..value)
 				i = i + 1
 			end
 		end

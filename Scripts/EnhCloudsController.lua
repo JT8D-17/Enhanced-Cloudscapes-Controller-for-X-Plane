@@ -23,8 +23,6 @@ require("EnhCloudsController/Lua/ECC_Helpers")          -- Helper functions
 require("EnhCloudsController/Lua/ECC_Settings")         -- Imgui Window Element: Settings
 require("EnhCloudsController/Lua/ECC_CloudPrefs")       -- Cloud preferences window
 
--- Specific
-
 --[[
 
 PATHS
@@ -35,53 +33,15 @@ ECC_PrefsFile = MODULES_DIRECTORY.."EnhCloudsController/UI_Prefs.cfg"   -- Prefe
 ECC_LogFile = MODULES_DIRECTORY.."EnhCloudsController/Log.txt"          -- Log file path
 --[[
 
-VARIABLES (local to this module)
+VARIABLES (local or global!)
 
 ]]
 ECC_ScriptName = "Enhanced Cloudscapes Controller"
 local ECC_Initialized = false 	-- Has the script been initialized?
-
---[[
-
-DATAREFS (local to this module)
-
-]]
-
-local ECC_DRef_SimPaused = dataref_table("sim/time/paused")	-- Simulator
-
---[[
-
-FUNCTIONS
-
-]]
-
---[[ Script initialization. This function is executed once and then basically locked until the next (re)load ]]--
-function ECC_Init()
-	ECC_File_Delete("Log")					-- Delete the old log file
-	ECC_Log_Write("INIT: Beginning "..ECC_ScriptName.." initialization")
-	ECC_Table_Sort(ECC_Preferences)	 	-- Trigger sorting and recreation of initial preferences parameter table
-	ECC_Check_Autoload = true 				--Enable autoloading status mode check
-	ECC_File_Read("PrefsFile") 				--Trigger reading the save file and writing the contents to the target table
-	if ECC_Preferences.AAA_Is_ECC_Window_Open then ECC_Window_Show() end -- If window open flag was true, build the window
-    --ECC_PluginStatusNotification()
-	ECC_Initialized = true
-	if ECC_Initialized then print("---> "..ECC_ScriptName.." initialized.") ECC_Log_Write("INIT: Finished "..ECC_ScriptName.." initialization") end
-end
-
---[[
-
-LOOPS
-
-]]
---[[ Main Loop (1 second) ]]
-function ECC_Main_1sec()
-	if not ECC_Initialized then ECC_Init() end
-	if ECC_Initialized and ECC_DRef_SimPaused[0] == 0 then
-        
-	end
-end
-do_often("ECC_Main_1sec()")
-
+ECC_Check_Autoload = false						-- Enables check of the autoloading condition
+ECC_Window_Pos={0,0}							-- Window position x,y
+ECC_NotificationStack = { }                     -- Array for the notification stack 
+ECC_ImguiColors={0x33FFAE00,0xBBFFAE00,0xFFC8C8C8,0xFF0000FF,0xFF19CF17,0xFFB6CDBA,0xFF40aee5} -- Imgui: Control elements passive, control elements active, text, negative, positive, neutral, caution
 --[[
 
 IMGUI WINDOW MANAGEMENT
@@ -113,15 +73,13 @@ function ECC_Window_Toggle()
 end
 --[[ Open Window by Keystroke ]]
 function ECC_Window_By_Key()
-	if ECC_Preferences.AAA_WindowToggleHotkeyEnable and KEY_ACTION=="pressed" and VKEY==ECC_Preferences.AAA_WindowToggleHotkey then
+	if ECC_Settings.WindowToggleByHotkey == 1 and KEY_ACTION=="pressed" and VKEY==ECC_Preferences.AAA_WindowToggleHotkey then
 		ECC_Window_Toggle()
 		RESUME_KEY = true
 		--print("Pressed "..ECC_Preferences.AAA_WindowToggleHotkey)
 	end
 end
 do_on_keystroke("ECC_Window_By_Key()")
-
-
 --[[
 
 IMGUI WINDOW BUILDER
@@ -156,9 +114,21 @@ function ECC_Window_Build(ECC_Window,xpos,ypos)
 end
 --[[
 
+INITIALIZATION
+
+]]
+ECC_File_Delete("Log")					-- Delete the old log file
+ECC_Log_Write("INIT: Beginning "..ECC_ScriptName.." initialization")
+ECC_Table_Sort(ECC_Preferences)	 	-- Trigger sorting and recreation of initial preferences parameter table
+ECC_Check_Autoload = true 				--Enable autoloading status mode check
+ECC_File_Read("PrefsFile") 				--Trigger reading the save file and writing the contents to the target table
+if ECC_Preferences.AAA_Is_ECC_Window_Open then ECC_Window_Show() end -- If window open flag was true, build the window
+ECC_Initialized = true
+if ECC_Initialized then print("---> "..ECC_ScriptName.." initialized.") ECC_Log_Write("INIT: Finished "..ECC_ScriptName.." initialization") end
+--[[
+
 MACROS AND COMMANDS
 
 ]]
-
 add_macro(ECC_ScriptName..": Toggle Window", "ECC_Window_Show()","ECC_Window_Hide(ECC_Window)","deactivate")
 create_command(ECC_ScriptName.."/Window/Toggle", "Toggle Window", "ECC_Window_Toggle()", "", "")

@@ -304,101 +304,106 @@ IMGUI WINDOW ELEMENT
 
 ]]
 function ECC_Win_CloudPrefs()
-    --[[ Obtain and store window information ]]
-    ECC_GetWindowInfo()
-    --[["Plugin not installed" warning ]]
-    if not ECC_Cld_PluginInstalled then
-        imgui.PushStyleColor(imgui.constant.Col.Text, ECC_ImguiColors[4]) imgui.TextUnformatted("\"Enchanced Cloudscapes\" plugin is not installed!") imgui.PopStyleColor()       
-    else
-        --[[ Sub page flip buttons ]]
-        if imgui.Button("<< ##a",20,20) then ECC_Cld_Subpage = ECC_Cld_Subpage - 1 if ECC_Cld_Subpage == 0 then ECC_Cld_Subpage = #ECC_SubPageAssignments end end
-        imgui.SameLine() imgui.Dummy((ECC_Preferences.AAA_Window_W-185) / 2,20) imgui.SameLine() 
-        imgui.TextUnformatted("Group "..ECC_Cld_Subpage.." of "..#ECC_SubPageAssignments) 
-        imgui.SameLine() imgui.Dummy((ECC_Preferences.AAA_Window_W-185) / 2,20) imgui.SameLine()
-        if imgui.Button(">> ##b",20,20) then ECC_Cld_Subpage = ECC_Cld_Subpage + 1 if ECC_Cld_Subpage > #ECC_SubPageAssignments then ECC_Cld_Subpage = 1 end end
-        --[[ Read datarefs ]]
-        ECC_AccessDref(ECC_Cld_DRefs,"read")
-        --[[ Begin subwindow ]]
-        if ECC_Preferences.Window_Page == 0 then
-            -- Loop thorugh the selected section of the sub page assignment table
-            for q=1,#ECC_SubPageAssignments[ECC_Cld_Subpage] do
-                local inputindex = ECC_SubPageAssignments[ECC_Cld_Subpage][q]
-                imgui.Dummy((ECC_Preferences.AAA_Window_W-30),15)
-                -- Caption
-                if not ECC_Cld_AdvMode then
-                    imgui.TextUnformatted(ECC_Cld_DRefs[inputindex][4]..":") 
-                else
-                    imgui.PushItemWidth(ECC_Preferences.AAA_Window_W - 190)
-                    local changed,buffer = imgui.InputText("##"..inputindex,ECC_Cld_DRefs[inputindex][4],48)
-                    if changed then ECC_Cld_DRefs[inputindex][4] = buffer end
-                    imgui.PopItemWidth()
-                end
-                --
-                for k=0,#ECC_Cld_DRefs[inputindex][3] do
-                    ECC_InputElements(inputindex,k,ECC_Cld_DRefs[inputindex][8],ECC_Cld_DRefs[inputindex][9])
-                end
-                --Advanced: Text input for value range limit
-                if ECC_Cld_AdvMode then
-                    -- Low limit
-                    imgui.TextUnformatted("Lower Raw Value Limit: ") imgui.SameLine()
-                    imgui.PushItemWidth(100)
-                    local changed,buffer = imgui.InputFloat("##Lo"..inputindex, ECC_Cld_DRefs[inputindex][6][1],0,0,"%.10f") imgui.SameLine()
-                    if changed then ECC_Cld_DRefs[inputindex][6][1] = buffer buffer = nil end
-                    imgui.PopItemWidth()
-                    if imgui.Button("Reset ##Lo"..inputindex,50,20) then ECC_Cld_DRefs[inputindex][6][1] = ECC_Cld_DRefs[inputindex][7][1] end
-                    -- High limit
-                    imgui.TextUnformatted("Upper Raw Value Limit: ") imgui.SameLine()
-                    imgui.PushItemWidth(100)
-                    local changed,buffer = imgui.InputFloat("##Hi"..inputindex, ECC_Cld_DRefs[inputindex][6][2],0,0,"%.10f") imgui.SameLine()
-                    if changed then ECC_Cld_DRefs[inputindex][6][2] = buffer buffer = nil end
-                    imgui.PopItemWidth()
-                    if imgui.Button("Reset ##Hi"..inputindex,50,20) then ECC_Cld_DRefs[inputindex][6][2] = ECC_Cld_DRefs[inputindex][7][2] end
-                    -- Precision
-                    imgui.TextUnformatted("Display Precision    : ") imgui.SameLine()
-                    imgui.PushItemWidth(100)
-                    local changed,buffer = imgui.InputInt("##Decimals"..inputindex, ECC_Cld_DRefs[inputindex][9],0,0)
-                    if changed then ECC_Cld_DRefs[inputindex][9] = buffer buffer = nil end
-                    imgui.PopItemWidth()
-                    --Display mode selector checkbox
-                    local changed, newValDispMode = imgui.Checkbox("Display As Percentage ##"..inputindex, ECC_Cld_DRefs[inputindex][8])
-                    if changed then 
-                        if ECC_Cld_DRefs[inputindex][8] == 1 then 
-                            ECC_Cld_DRefs[inputindex][8] = 0
-                            for l=0,#ECC_Cld_DRefs[inputindex][3] do
-                                ECC_PercentToFloat(ECC_Cld_DRefs[inputindex][3][l],ECC_Cld_DRefs[inputindex][6][1],ECC_Cld_DRefs[inputindex][6][2])
-                                ECC_Cld_DRefs[inputindex][9] = 6
-                            end
-                        elseif ECC_Cld_DRefs[inputindex][8] == 0 then
-                            ECC_Cld_DRefs[inputindex][8] = 1
-                            for l=0,#ECC_Cld_DRefs[inputindex][3] do
-                                ECC_FloatToPercent(ECC_Cld_DRefs[inputindex][3][l],ECC_Cld_DRefs[inputindex][6][1],ECC_Cld_DRefs[inputindex][6][2])
-                                ECC_Cld_DRefs[inputindex][9] = 1
-                            end
-                        end 
+    if ECC_Preferences.Window_Page == 0 then
+        --[[ Obtain and store window information ]]
+        ECC_GetWindowInfo()
+        --[["Plugin not installed" warning ]]
+        if not ECC_Cld_PluginInstalled then
+            imgui.PushStyleColor(imgui.constant.Col.Text, ECC_ImguiColors[4]) imgui.TextUnformatted("\"Enchanced Cloudscapes\" plugin is not installed!") imgui.PopStyleColor()       
+        else
+            --[[ Sub page flip buttons ]]
+            if imgui.Button("<< ##a",20,20) then ECC_Cld_Subpage = ECC_Cld_Subpage - 1 if ECC_Cld_Subpage == 0 then ECC_Cld_Subpage = #ECC_SubPageAssignments end end
+            imgui.SameLine() imgui.Dummy((ECC_Preferences.AAA_Window_W-185) / 2,20) imgui.SameLine() 
+            imgui.TextUnformatted("Group "..ECC_Cld_Subpage.." of "..#ECC_SubPageAssignments) 
+            imgui.SameLine() imgui.Dummy((ECC_Preferences.AAA_Window_W-185) / 2,20) imgui.SameLine()
+            if imgui.Button(">> ##b",20,20) then ECC_Cld_Subpage = ECC_Cld_Subpage + 1 if ECC_Cld_Subpage > #ECC_SubPageAssignments then ECC_Cld_Subpage = 1 end end
+            --[[ Read datarefs ]]
+            ECC_AccessDref(ECC_Cld_DRefs,"read")
+            --[[ Begin subwindow ]]
+            if ECC_Preferences.Window_Page == 0 then
+                -- Loop thorugh the selected section of the sub page assignment table
+                for q=1,#ECC_SubPageAssignments[ECC_Cld_Subpage] do
+                    local inputindex = ECC_SubPageAssignments[ECC_Cld_Subpage][q]
+                    imgui.Dummy((ECC_Preferences.AAA_Window_W-30),15)
+                    -- Caption
+                    if not ECC_Cld_AdvMode then
+                        imgui.TextUnformatted(ECC_Cld_DRefs[inputindex][4]..":") 
+                    else
+                        imgui.PushItemWidth(ECC_Preferences.AAA_Window_W - 190)
+                        local changed,buffer = imgui.InputText("##"..inputindex,ECC_Cld_DRefs[inputindex][4],48)
+                        if changed then ECC_Cld_DRefs[inputindex][4] = buffer end
+                        imgui.PopItemWidth()
                     end
-                    imgui.TextUnformatted("Display In Group     : ") imgui.SameLine()
-                    imgui.PushItemWidth(100)
-                    local changed,buffer = imgui.InputInt("##Page"..inputindex, ECC_Cld_DRefs[inputindex][10],0,0)
-                    if changed then ECC_Cld_DRefs[inputindex][10] = buffer buffer = nil end
-                    imgui.PopItemWidth() imgui.SameLine()
-                    if imgui.Button("Apply ##"..inputindex,50,20) then ECC_SubPageBuilder() ECC_Cld_Subpage = #ECC_SubPageAssignments break end
+                    --
+                    for k=0,#ECC_Cld_DRefs[inputindex][3] do
+                        ECC_InputElements(inputindex,k,ECC_Cld_DRefs[inputindex][8],ECC_Cld_DRefs[inputindex][9])
+                    end
+                    --Advanced: Text input for value range limit
+                    if ECC_Cld_AdvMode then
+                        --Display mode selector button
+                        local currentmode = ECC_Cld_DRefs[inputindex][8]
+                        local buttoncaption = ""
+                        if currentmode == 0 then buttoncaption = "Switch Display To Percentage" end
+                        if currentmode == 1 then buttoncaption = "Switch Display To Numerical" end
+                        if imgui.Button(buttoncaption.."##dispmode"..inputindex,(ECC_Preferences.AAA_Window_W - 190),20) then 
+                            if ECC_Cld_DRefs[inputindex][8] == 1 then 
+                                ECC_Cld_DRefs[inputindex][8] = 0
+                                for l=0,#ECC_Cld_DRefs[inputindex][3] do
+                                    ECC_PercentToFloat(ECC_Cld_DRefs[inputindex][3][l],ECC_Cld_DRefs[inputindex][6][1],ECC_Cld_DRefs[inputindex][6][2])
+                                    ECC_Cld_DRefs[inputindex][9] = 6
+                                end
+                            elseif ECC_Cld_DRefs[inputindex][8] == 0 then
+                                ECC_Cld_DRefs[inputindex][8] = 1
+                                for l=0,#ECC_Cld_DRefs[inputindex][3] do
+                                    ECC_FloatToPercent(ECC_Cld_DRefs[inputindex][3][l],ECC_Cld_DRefs[inputindex][6][1],ECC_Cld_DRefs[inputindex][6][2])
+                                    ECC_Cld_DRefs[inputindex][9] = 1
+                                end
+                            end 
+                        end
+                        -- Low limit
+                        imgui.TextUnformatted("Lower Raw Value Limit: ") imgui.SameLine()
+                        imgui.PushItemWidth(100)
+                        local changed,buffer = imgui.InputFloat("##Lo"..inputindex, ECC_Cld_DRefs[inputindex][6][1],0,0,"%.10f") imgui.SameLine()
+                        if changed then ECC_Cld_DRefs[inputindex][6][1] = buffer buffer = nil end
+                        imgui.PopItemWidth()
+                        if imgui.Button("Reset ##Lo"..inputindex,50,20) then ECC_Cld_DRefs[inputindex][6][1] = ECC_Cld_DRefs[inputindex][7][1] end
+                        -- High limit
+                        imgui.TextUnformatted("Upper Raw Value Limit: ") imgui.SameLine()
+                        imgui.PushItemWidth(100)
+                        local changed,buffer = imgui.InputFloat("##Hi"..inputindex, ECC_Cld_DRefs[inputindex][6][2],0,0,"%.10f") imgui.SameLine()
+                        if changed then ECC_Cld_DRefs[inputindex][6][2] = buffer buffer = nil end
+                        imgui.PopItemWidth()
+                        if imgui.Button("Reset ##Hi"..inputindex,50,20) then ECC_Cld_DRefs[inputindex][6][2] = ECC_Cld_DRefs[inputindex][7][2] end
+                        -- Precision
+                        imgui.TextUnformatted("Display Precision    : ") imgui.SameLine()
+                        imgui.PushItemWidth(100)
+                        local changed,buffer = imgui.InputInt("##Decimals"..inputindex, ECC_Cld_DRefs[inputindex][9],0,0)
+                        if changed then ECC_Cld_DRefs[inputindex][9] = buffer buffer = nil end
+                        imgui.PopItemWidth()
+                        imgui.TextUnformatted("Display In Group     : ") imgui.SameLine()
+                        imgui.PushItemWidth(100)
+                        local changed,buffer = imgui.InputInt("##Page"..inputindex, ECC_Cld_DRefs[inputindex][10],0,0)
+                        if changed then ECC_Cld_DRefs[inputindex][10] = buffer buffer = nil end
+                        imgui.PopItemWidth() imgui.SameLine()
+                        if imgui.Button("Apply ##"..inputindex,50,20) then ECC_SubPageBuilder() ECC_Cld_Subpage = #ECC_SubPageAssignments break end
+                    end
                 end
+            --[[ End subwindow ]]
             end
-        --[[ End subwindow ]]
+            imgui.Dummy((ECC_Preferences.AAA_Window_W-30),20)
+            --"Advanced" checkbox
+            local changed, newECC_Cld_AdvMode = imgui.Checkbox("Advanced Settings", ECC_Cld_AdvMode)
+            if changed then ECC_Cld_AdvMode = newECC_Cld_AdvMode end
+            --[[ Write datarefs ]]
+            ECC_AccessDref(ECC_Cld_DRefs,"write")
+            imgui.Dummy((ECC_Preferences.AAA_Window_W-30),20)
+            --[[ "Load preset" button ]]
+            if imgui.Button("Load Preset",100,20) then ECC_PresetFileRead() ECC_SubPageBuilder() ECC_Cld_Subpage = #ECC_SubPageAssignments end
+            imgui.SameLine() imgui.Dummy((ECC_Preferences.AAA_Window_W-250),5) imgui.SameLine()
+            --[[ "Save preset" button ]]
+            if imgui.Button("Save Preset",100,20) then ECC_PresetFileWrite() end
+            
         end
-        imgui.Dummy((ECC_Preferences.AAA_Window_W-30),20)
-        --"Advanced" checkbox
-        local changed, newECC_Cld_AdvMode = imgui.Checkbox("Advanced Settings", ECC_Cld_AdvMode)
-        if changed then ECC_Cld_AdvMode = newECC_Cld_AdvMode end
-        --[[ Write datarefs ]]
-        ECC_AccessDref(ECC_Cld_DRefs,"write")
-        imgui.Dummy((ECC_Preferences.AAA_Window_W-30),20)
-        --[[ "Load preset" button ]]
-        if imgui.Button("Load Preset",100,20) then ECC_PresetFileRead() ECC_SubPageBuilder() ECC_Cld_Subpage = #ECC_SubPageAssignments end
-        imgui.SameLine() imgui.Dummy((ECC_Preferences.AAA_Window_W-250),5) imgui.SameLine()
-         --[[ "Save preset" button ]]
-        if imgui.Button("Save Preset",100,20) then ECC_PresetFileWrite() end
-        
+        --imgui.Dummy((ECC_Preferences.AAA_Window_W-30),20)
     end
-    --imgui.Dummy((ECC_Preferences.AAA_Window_W-30),20)
 end
