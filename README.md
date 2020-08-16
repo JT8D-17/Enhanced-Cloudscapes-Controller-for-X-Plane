@@ -5,9 +5,9 @@ FlyWithLua-based user interface to control the "Enhanced Cloudscapes" plugin for
 
 ## Requirements
 
-- [X-Plane 11](https://www.x-plane.com/)
-- [FlyWithLuaNG](https://forums.x-plane.org/index.php?/files/file/38445-flywithlua-ng-next-generation-edition-for-x-plane-11-win-lin-mac/)
-- [ "Enhanced Cloudscapes" plugin](https://forums.x-plane.org/index.php?/files/file/65005-enhanced-cloudscapes/)
+- [X-Plane 11](https://www.x-plane.com/) (11.41 or newer)
+- [FlyWithLuaNG](https://forums.x-plane.org/index.php?/files/file/38445-flywithlua-ng-next-generation-edition-for-x-plane-11-win-lin-mac/) (2.7.28 or newer)
+- [ "Enhanced Cloudscapes" plugin](https://forums.x-plane.org/index.php?/files/file/65005-enhanced-cloudscapes/) (2020.08.17 or newer)
 
 &nbsp;
 
