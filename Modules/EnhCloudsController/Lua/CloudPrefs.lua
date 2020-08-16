@@ -278,9 +278,9 @@ function ECC_PresetFileRead()
                 end
            end
         end
-        --for j=1,#temptable do
-            --print(type(temptable[j][1])..": "..temptable[j][1].." ; "..type(temptable[j][2])..": "..table.concat(temptable[j][2],",",0).." ; "..type(temptable[j][3])..": "..temptable[j][3].." ; "..type(temptable[j][4])..": "..table.concat(temptable[j][4],",").." ; "..type(temptable[j][5])..": "..temptable[j][5].." ; "..type(temptable[j][6])..": "..temptable[j][6].." ; "..type(temptable[j][7])..": "..temptable[j][7])
-        --end
+        --[[for j=1,#temptable do
+            print(type(temptable[j][1])..": "..temptable[j][1].." ; "..type(temptable[j][2])..": "..table.concat(temptable[j][2],",",0).." ; "..type(temptable[j][3])..": "..temptable[j][3].." ; "..type(temptable[j][4])..": "..table.concat(temptable[j][4],",").." ; "..type(temptable[j][5])..": "..temptable[j][5].." ; "..type(temptable[j][6])..": "..temptable[j][6].." ; "..type(temptable[j][7])..": "..temptable[j][7])
+        end]]
         file:close()
 		if i ~= nil and i > 0 then ECC_Notification("FILE READ SUCCESS: "..ECC_PresetFile,"Success","log") else ECC_Notification("FILE READ ERROR: "..ECC_PresetFile,"Error","log") end
     else
@@ -288,25 +288,31 @@ function ECC_PresetFileRead()
 		--ECC_Check_AutoLoad = false
 	end   
 end
+--[[ Preset load handler ]]
+function ECC_LoadPresetVals()
+    ECC_Log_Write("ECC PRESET: Started loading values from file")
+    ECC_PresetFileRead()                        -- Read preset file
+    ECC_AccessDref(ECC_Cld_DRefs,"write")       -- Write values to datarefs
+    ECC_SubPageBuilder()                        -- Build subpage indexes
+    ECC_Cld_Subpage = #ECC_SubPageAssignments   -- Limit page selection to avoid landing on a blank page
+    ECC_Log_Write("ECC PRESET: Finished loading values from file")
+end
 --[[ 
 
 INITIALIZATION
 
 ]]
--- Check if plugin is installed and display logged notifications
-ECC_FindInopDrefs(ECC_Cld_DRefs)
--- If yes, do the remaining init stuff
-if ECC_Cld_PluginInstalled then
-    --[[ Read dataref values ]]
-    ECC_AccessDref(ECC_Cld_DRefs,"read")
-    --[[ Note default dataref values ]]
-    ECC_CopyDefaults(ECC_Cld_DRefs)
-    -- Index number of subpages with items
-    ECC_SubPageBuilder()
-    --
-    --ECC_PresetFileDelete()
+function ECC_CloudPrefs_Init()
+    -- Check if plugin is installed and display logged notifications
+    ECC_FindInopDrefs(ECC_Cld_DRefs)
+    -- If yes, do the remaining init stuff
+    if ECC_Cld_PluginInstalled then
+        ECC_AccessDref(ECC_Cld_DRefs,"read")    -- Read dataref values
+        ECC_CopyDefaults(ECC_Cld_DRefs)         -- Note default dataref values
+        ECC_SubPageBuilder()                    -- Index number of subpages with items
+        if ECC_SettingsValGet("AutoLoad") == 1 then ECC_LoadPresetVals()  ECC_Log_Write("ECC PRESET: Triggered loading values from file") end
+    end
 end
-
 --[[
 
 IMGUI WINDOW ELEMENT
@@ -405,7 +411,7 @@ function ECC_Win_CloudPrefs()
             ECC_AccessDref(ECC_Cld_DRefs,"write")
             imgui.Dummy((ECC_SettingsValGet("Window_W")-30),20)
             --[[ "Load preset" button ]]
-            if imgui.Button("Load Preset",100,20) then ECC_PresetFileRead() ECC_SubPageBuilder() ECC_Cld_Subpage = #ECC_SubPageAssignments end
+            if imgui.Button("Load Preset",100,20) then ECC_LoadPresetVals() end
             imgui.SameLine() imgui.Dummy((ECC_SettingsValGet("Window_W")-250),5) imgui.SameLine()
             --[[ "Save preset" button ]]
             if imgui.Button("Save Preset",100,20) then ECC_PresetFileWrite() end

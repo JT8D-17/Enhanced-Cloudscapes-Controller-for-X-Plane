@@ -105,7 +105,8 @@ function ECC_Main_1sec()
         ECC_Log_Delete()					-- Delete the old log file
         ECC_Log_Write("INIT: Beginning "..ECC_ScriptName.." initialization")
         --ECC_Check_Autoload = true 				--Enable autoloading status mode check
-        ECC_SettingsFileRead() 				--Trigger reading the save file and writing the contents to the target table
+        ECC_SettingsFileRead() 				-- Trigger reading the UI settings file
+        ECC_CloudPrefs_Init()               -- Initialize cloud settings window
         if ECC_SettingsValGet("WindowIsOpen") == 1 then ECC_Window_Show() end -- If window open flag was true, build the window
         ECC_Initialized = true
         if ECC_Initialized then print("---> "..ECC_ScriptName.." initialized.") ECC_Log_Write("INIT: Finished "..ECC_ScriptName.." initialization") end

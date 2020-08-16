@@ -105,7 +105,7 @@ function ECC_SettingsFileRead()
             end       
         end
         file:close()
-        for l=1,#ECC_Settings do print(table.concat(ECC_Settings[l],": ")) end
+        --for l=1,#ECC_Settings do print(table.concat(ECC_Settings[l],": ")) end
 		if i ~= nil and i > 0 then ECC_Notification("FILE READ SUCCESS: "..ECC_SettingsFile,"Success","log") else ECC_Notification("FILE READ ERROR: "..ECC_SettingsFile,"Error","log") end
     else
         ECC_Notification("FILE NOT FOUND: "..ECC_SettingsFile,"Error","log")
@@ -147,12 +147,12 @@ function ECC_Win_Settings()
     --[[ Button ]]
     if ECC_SettingsValGet("Window_Page") == 0 then
         imgui.Dummy((ECC_SettingsValGet("Window_W")-30),19)
-        if imgui.Button("ECC Preferences",(ECC_SettingsValGet("Window_W")-30),20) then ECC_SettingsValSet("Window_Page",1) ECC_Settings_CheckAutosave() end
+        if imgui.Button("ECC UI Settings",(ECC_SettingsValGet("Window_W")-30),20) then ECC_SettingsValSet("Window_Page",1) ECC_Settings_CheckAutosave() end
     end
     --[[ Page ]]
     if ECC_SettingsValGet("Window_Page") == 1 then    
         --[[ "Back" button ]]
-        if imgui.Button("Main Menu",(ECC_SettingsValGet("Window_W")-30),20) then ECC_SettingsValSet("Window_Page",0) ECC_Settings_CheckAutosave() end
+        if imgui.Button("Back",(ECC_SettingsValGet("Window_W")-30),20) then ECC_SettingsValSet("Window_Page",0) ECC_Settings_CheckAutosave() end
         imgui.Dummy((ECC_SettingsValGet("Window_W")-30),10)
         imgui.Separator()
         --[[ Message display time ]]
@@ -176,7 +176,7 @@ function ECC_Win_Settings()
             imgui.Dummy((ECC_SettingsValGet("Window_W")-30),19)
         end
         --[[ Autosave options ]]
-        if imgui.Button(ECC_ValToStr(ECC_SettingsValGet("AutoSave")).." Autosave Changes##30",(ECC_SettingsValGet("Window_W")-30),20) then 
+        if imgui.Button(ECC_ValToStr(ECC_SettingsValGet("AutoSave")).." Autosave##30",(ECC_SettingsValGet("Window_W")-30),20) then 
             if ECC_SettingsValGet("AutoSave") == 0 then ECC_SettingsValSet("AutoSave",1)
             elseif ECC_SettingsValGet("AutoSave") == 1 then ECC_SettingsValSet("AutoSave",0) end 
             ECC_SettingsFileWrite()
@@ -187,7 +187,7 @@ function ECC_Win_Settings()
     --				if changed and newAutoSave_Time ~= "" and tonumber(newAutoSave_Time) then ECC_Preferences.AutoSave_Time = newAutoSave_Time ECC_SettingsFileWrite() end
     --			end
         --[[ Autoload options ]]
-        if imgui.Button(ECC_ValToStr(ECC_SettingsValGet("AutoLoad")).." Autoload Changes##40",(ECC_SettingsValGet("Window_W")-30),20) then 
+        if imgui.Button(ECC_ValToStr(ECC_SettingsValGet("AutoLoad")).." Autoload##40",(ECC_SettingsValGet("Window_W")-30),20) then 
             if ECC_SettingsValGet("AutoLoad") == 0 then ECC_SettingsValSet("AutoLoad",1)
             elseif ECC_SettingsValGet("AutoLoad") == 1 then ECC_SettingsValSet("AutoLoad",0) end 
             ECC_SettingsFileWrite()
