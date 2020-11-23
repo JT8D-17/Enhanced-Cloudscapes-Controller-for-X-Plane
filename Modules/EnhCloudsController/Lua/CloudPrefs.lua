@@ -33,12 +33,12 @@ local ECC_Cld_DRefs = {
         {"enhanced_cloudscapes/overcast/coverage",1,{},"Overcast Layer Coverage",{},{0,1.0},{},1,2,2},
         {"enhanced_cloudscapes/stratus/coverage",1,{},"Stratus Layer Coverage",{},{0,1.0},{},1,2,2},
 
-        {"enhanced_cloudscapes/cirrus/density",1,{},"Cirrus Density",{},{0,0.01},{},0,4,3},
-        {"enhanced_cloudscapes/few/density",1,{},"Few Density",{},{0,0.01},{},0,4,3},
-        {"enhanced_cloudscapes/scattered/density",1,{},"Scattered Density",{},{0,0.01},{},0,4,3},
-        {"enhanced_cloudscapes/broken/density",1,{},"Broken Density",{},{0,0.01},{},0,4,3},
-        {"enhanced_cloudscapes/overcast/density",1,{},"Overcast Density",{},{0,0.01},{},0,4,3},
-        {"enhanced_cloudscapes/stratus/density",1,{},"Stratus Density",{},{0,0.01},{},0,4,3},
+        {"enhanced_cloudscapes/cirrus/density",1,{},"Cirrus Density",{},{0,0.01},{},0,6,3},
+        {"enhanced_cloudscapes/few/density",1,{},"Few Density",{},{0,0.01},{},0,6,3},
+        {"enhanced_cloudscapes/scattered/density",1,{},"Scattered Density",{},{0,0.01},{},0,6,3},
+        {"enhanced_cloudscapes/broken/density",1,{},"Broken Density",{},{0,0.01},{},0,6,3},
+        {"enhanced_cloudscapes/overcast/density",1,{},"Overcast Density",{},{0,0.01},{},0,6,3},
+        {"enhanced_cloudscapes/stratus/density",1,{},"Stratus Density",{},{0,0.01},{},0,6,3},
 
         {"enhanced_cloudscapes/cirrus/base_noise_ratios",3,{},"Cirrus Base Noise Ratios",{},{0,1.0},{},1,2,4},
         {"enhanced_cloudscapes/few/base_noise_ratios",3,{},"Few Base Noise Ratios",{},{0,1.0},{},1,2,4},
