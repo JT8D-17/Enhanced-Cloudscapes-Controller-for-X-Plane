@@ -24,7 +24,7 @@ local ECC_Cld_DRefs = {
         {"enhanced_cloudscapes/cloud_map_scale",1,{},"Cloud Map Scale",{},{0,0.000025},{},0,8,1},
         {"enhanced_cloudscapes/base_noise_scale",1,{},"Base Noise Scale",{},{0,0.00025},{},0,8,1},
         {"enhanced_cloudscapes/detail_noise_scale",1,{},"Detail Noise Scale",{},{0,0.0025},{},0,6,1},
-        {"enhanced_cloudscapes/blue_noise_scale",1,{},"Blue Noise Scale",{},{0,0.25},{},0,4,1},
+        {"enhanced_cloudscapes/blue_noise_scale",1,{},"Blue Noise Scale",{},{0,0.25},{},0,6,1},
 
         {"enhanced_cloudscapes/cirrus/coverage",1,{},"Cirrus Layer Coverage",{},{0,1.0},{},1,2,2},
         {"enhanced_cloudscapes/few/coverage",1,{},"Few Layer Coverage",{},{0,1.0},{},1,2,2},
@@ -60,7 +60,7 @@ local ECC_Cld_DRefs = {
         {"enhanced_cloudscapes/light_attenuation",1,{},"Light Attenuation",{},{0,10.0},{},0,2,7},
         {"enhanced_cloudscapes/sun_gain",1,{},"Sun Gain",{},{0,20.0},{},0,2,7},
         {"enhanced_cloudscapes/ambient_gain",1,{},"Ambient Gain",{},{0,20.0},{},0,2,7},
-        {"enhanced_cloudscapes/mie_scattering",1,{},"Mie Scattering",{},{0,0.975},{},1,2,7},
+        {"enhanced_cloudscapes/mie_scattering",1,{},"Mie Scattering",{},{0,1.0},{},0,4,7},
         {"enhanced_cloudscapes/atmosphere_bottom_tint",3,{},"Atmosphere Bottom Tint",{},{0,1.0},{},1,2,7},
         {"enhanced_cloudscapes/atmosphere_top_tint",3,{},"Atmosphere Top Tint",{},{0,1.0},{},1,2,7},
         {"enhanced_cloudscapes/atmospheric_blending",1,{},"Atmospheric Blending",{},{0,1.0},{},1,2,7},
