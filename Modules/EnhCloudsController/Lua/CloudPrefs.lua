@@ -21,45 +21,57 @@ DATAREFS (local to this module)
 ]]
 -- Dataref table content: "1: Dref name",2: Dref size,{3: Dref value(s)},"4: Dref title",{5: Dref default values},{6: Dref value range},{7: Copy of dref value range},8: Display mode (numeric/percent),9:Display precision,10: Sub page group
 local ECC_Cld_DRefs = {
-        {"enhanced_cloudscapes/cloud_map_scale",1,{},"Cloud Map Scale",{},{0,0.00001},{},1,1,1},          -- #1 ,Default 0.000005
-        {"enhanced_cloudscapes/base_noise_scale",1,{},"Base Noise Scale",{},{0,0.0001},{},1,1,1},         -- #2 ,Default 0.000025
-        {"enhanced_cloudscapes/detail_noise_scale",1,{},"Detail Noise Scale",{},{0,0.001},{},1,1,1},      -- #3 ,Default 0.0002
-        {"enhanced_cloudscapes/blue_noise_scale",1,{},"Blue Noise Scale",{},{0,0.1},{},1,1,1},            -- #4 ,Default 0.01
-        {"enhanced_cloudscapes/cirrus/height",1,{},"Cirrus Layer Height",{},{0,10000},{},0,1,2},          -- #5 ,Default 2500.0
-        {"enhanced_cloudscapes/scattered/height",1,{},"Scattered Layer Height",{},{0,10000},{},0,1,2},    -- #6 ,Default 4000.0
-        {"enhanced_cloudscapes/broken/height",1,{},"Broken Layer Height",{},{0,10000},{},0,1,2},          -- #7 ,Default 5000.0
-        {"enhanced_cloudscapes/overcast/height",1,{},"Overcast Layer Height",{},{0,10000},{},0,1,2},      -- #8 ,Default 5000.0
-        {"enhanced_cloudscapes/stratus/height",1,{},"Stratus Layer Height",{},{0,10000},{},0,1,2},        -- #9 ,Default 6000.0
-        {"enhanced_cloudscapes/cirrus/coverage",1,{},"Cirrus Layer Coverage",{},{0,1.0},{},1,1,3},        -- #10,Default 0.375
-        {"enhanced_cloudscapes/scattered/coverage",1,{},"Scattered Layer Coverage",{},{0,1.0},{},1,1,3},  -- #11,Default 0.75
-        {"enhanced_cloudscapes/broken/coverage",1,{},"Broken Layer Coverage",{},{0,1.0},{},1,1,3},        -- #12,Default 0.85
-        {"enhanced_cloudscapes/overcast/coverage",1,{},"Overcast Layer Coverage",{},{0,1.0},{},1,1,3},    -- #13,Default 0.95
-        {"enhanced_cloudscapes/stratus/coverage",1,{},"Stratus Layer Coverage",{},{0,1.0},{},1,1,3},      -- #14,Default 1.0
-        {"enhanced_cloudscapes/cirrus/base_noise_ratios",3,{},"Cirrus Base Noise Ratios",{},{0,1.0},{},0,4,4},         -- #15,Defaults 0.625, 0.25, 0.125
-        {"enhanced_cloudscapes/scattered/base_noise_ratios",3,{},"Scattered Base Noise Ratios",{},{0,1.0},{},0,4,4},   -- #16,Defaults 0.625, 0.25, 0.125
-        {"enhanced_cloudscapes/broken/base_noise_ratios",3,{},"Broken Base Noise Ratios",{},{0,1.0},{},0,4,4},         -- #17,Defaults 0.625, 0.25, 0.125
-        {"enhanced_cloudscapes/overcast/base_noise_ratios",3,{},"Overcast Base Noise Ratios",{},{0,1.0},{},0,4,4},     -- #18,Defaults 0.625, 0.25, 0.125
-        {"enhanced_cloudscapes/stratus/base_noise_ratios",3,{},"Stratus Base Noise Ratios",{},{0,1.0},{},0,4,4},       -- #19,Defaults 0.625, 0.25, 0.125
-        {"enhanced_cloudscapes/cirrus/detail_noise_ratios",3,{},"Cirrus Detail Noise Ratios",{},{0,1.0},{},0,4,5},        -- #20,Defaults 0.25, 0.125, 0.0625
-        {"enhanced_cloudscapes/scattered/detail_noise_ratios",3,{},"Scattered Detail Noise Ratios",{},{0,1.0},{},0,4,5},  -- #21,Defaults 0.625, 0.25, 0.125
-        {"enhanced_cloudscapes/broken/detail_noise_ratios",3,{},"Broken Detail Noise Ratios",{},{0,1.0},{},0,4,5},        -- #22,Defaults 0.625, 0.25, 0.125
-        {"enhanced_cloudscapes/overcast/detail_noise_ratios",3,{},"Overcast Detail Noise Ratios",{},{0,1.0},{},0,4,5},    -- #23,Defaults 0.625, 0.25, 0.125
-        {"enhanced_cloudscapes/stratus/detail_noise_ratios",3,{},"Stratus Detail Noise Ratios",{},{0,1.0},{},0,4,5},      -- #24,Defaults 0.625, 0.25, 0.125
-        {"enhanced_cloudscapes/cirrus/density_multiplier",1,{},"Cirrus Density Multiplier",{},{0,0.01},{},0,4,6},             -- #25,Default 0.0015
-        {"enhanced_cloudscapes/scattered/density_multiplier",1,{},"Scattered Density Multiplier",{},{0,0.01},{},0,4,6},       -- #26,Default 0.0035
-        {"enhanced_cloudscapes/broken/density_multiplier",1,{},"Broken Density Multiplier",{},{0,0.01},{},0,4,6},             -- #27,Default 0.004
-        {"enhanced_cloudscapes/overcast/density_multiplier",1,{},"Overcast Density Multiplier",{},{0,0.01},{},0,4,6},         -- #28,Default 0.004
-        {"enhanced_cloudscapes/stratus/density_multiplier",1,{},"Stratus Density Multiplier",{},{0,0.01},{},0,4,6},           -- #29,Default 0.0045
-        {"enhanced_cloudscapes/sun_gain",1,{},"Sun Gain",{},{0,10.0},{},1,2,7},                                  -- #30,Default 3.25
-        {"enhanced_cloudscapes/ambient_tint",3,{},"Ambient Tint",{},{0,10.0},{},1,1,7},                          -- #31,Defaults 1.0, 1.0, 1.0
-        {"enhanced_cloudscapes/ambient_gain",1,{},"Ambient Gain",{},{0,10.0},{},1,1,7},                          -- #32,Default 1.5
-        {"enhanced_cloudscapes/forward_mie_scattering",1,{},"Forward Mie Scattering",{},{0,1.0},{},1,2,7},       -- #33,Default 0.85
-        {"enhanced_cloudscapes/backward_mie_scattering",1,{},"Backward Mie Scattering",{},{0,1.0},{},1,2,7},     -- #34,Default 0.25
-        {"enhanced_cloudscapes/atmosphere_bottom_tint",3,{},"Atmosphere Bottom Tint",{},{0,1.0},{},1,2,7},       -- #35,Defaults 0.55, 0.775, 1.0
-        {"enhanced_cloudscapes/atmosphere_top_tint",3,{},"Atmosphere Top Tint",{},{0,1.0},{},1,2,7},             -- #36,Defaults 0.45, 0.675, 1.0
-        {"enhanced_cloudscapes/atmospheric_blending",1,{},"Atmospheric Blending",{},{0,1.0},{},1,3,7},           -- #37,Default 0.675    
-        {"enhanced_cloudscapes/rendering_resolution_ratio",1,{},"Rendering Resolution Ratio",{},{0,1.0},{},1,1,8},    -- #38,Default 0.7    
-        {"enhanced_cloudscapes/skip_fragments",1,{},"Skip Fragments",{},{0,10.0},{},1,1,8},                           -- #39,Default 1.0    
+        {"enhanced_cloudscapes/cloud_map_scale",1,{},"Cloud Map Scale",{},{0,0.000025},{},0,8,1},
+        {"enhanced_cloudscapes/base_noise_scale",1,{},"Base Noise Scale",{},{0,0.00025},{},0,8,1},
+        {"enhanced_cloudscapes/detail_noise_scale",1,{},"Detail Noise Scale",{},{0,0.0025},{},0,6,1},
+        {"enhanced_cloudscapes/blue_noise_scale",1,{},"Blue Noise Scale",{},{0,0.25},{},0,4,1},
+
+        {"enhanced_cloudscapes/cirrus/coverage",1,{},"Cirrus Layer Coverage",{},{0,1.0},{},1,2,2},
+        {"enhanced_cloudscapes/few/coverage",1,{},"Few Layer Coverage",{},{0,1.0},{},1,2,2},
+        {"enhanced_cloudscapes/scattered/coverage",1,{},"Scattered Layer Coverage",{},{0,1.0},{},1,2,2},
+        {"enhanced_cloudscapes/broken/coverage",1,{},"Broken Layer Coverage",{},{0,1.0},{},1,2,2},
+        {"enhanced_cloudscapes/overcast/coverage",1,{},"Overcast Layer Coverage",{},{0,1.0},{},1,2,2},
+        {"enhanced_cloudscapes/stratus/coverage",1,{},"Stratus Layer Coverage",{},{0,1.0},{},1,2,2},
+
+        {"enhanced_cloudscapes/cirrus/density",1,{},"Cirrus Density",{},{0,0.01},{},0,4,3},
+        {"enhanced_cloudscapes/few/density",1,{},"Few Density",{},{0,0.01},{},0,4,3},
+        {"enhanced_cloudscapes/scattered/density",1,{},"Scattered Density",{},{0,0.01},{},0,4,3},
+        {"enhanced_cloudscapes/broken/density",1,{},"Broken Density",{},{0,0.01},{},0,4,3},
+        {"enhanced_cloudscapes/overcast/density",1,{},"Overcast Density",{},{0,0.01},{},0,4,3},
+        {"enhanced_cloudscapes/stratus/density",1,{},"Stratus Density",{},{0,0.01},{},0,4,3},
+
+        {"enhanced_cloudscapes/cirrus/base_noise_ratios",3,{},"Cirrus Base Noise Ratios",{},{0,1.0},{},1,2,4},
+        {"enhanced_cloudscapes/few/base_noise_ratios",3,{},"Few Base Noise Ratios",{},{0,1.0},{},1,2,4},
+        {"enhanced_cloudscapes/scattered/base_noise_ratios",3,{},"Scattered Base Noise Ratios",{},{0,1.0},{},1,2,4},
+        {"enhanced_cloudscapes/broken/base_noise_ratios",3,{},"Broken Base Noise Ratios",{},{0,1.0},{},1,2,4},
+        {"enhanced_cloudscapes/overcast/base_noise_ratios",3,{},"Overcast Base Noise Ratios",{},{0,1.0},{},1,2,4},
+        {"enhanced_cloudscapes/stratus/base_noise_ratios",3,{},"Stratus Base Noise Ratios",{},{0,1.0},{},1,2,4},
+
+        {"enhanced_cloudscapes/cirrus/detail_noise_ratios",3,{},"Cirrus Detail Noise Ratios",{},{0,1.0},{},1,2,5},
+        {"enhanced_cloudscapes/few/detail_noise_ratios",3,{},"Few Detail Noise Ratios",{},{0,1.0},{},1,2,5},
+        {"enhanced_cloudscapes/scattered/detail_noise_ratios",3,{},"Scattered Detail Noise Ratios",{},{0,1.0},{},1,2,5},
+        {"enhanced_cloudscapes/broken/detail_noise_ratios",3,{},"Broken Detail Noise Ratios",{},{0,1.0},{},1,2,5},
+        {"enhanced_cloudscapes/overcast/detail_noise_ratios",3,{},"Overcast Detail Noise Ratios",{},{0,1.0},{},1,2,5},
+        {"enhanced_cloudscapes/stratus/detail_noise_ratios",3,{},"Stratus Detail Noise Ratios",{},{0,1.0},{},1,2,5},
+
+        {"enhanced_cloudscapes/base_anvil",1,{},"Base Anvil",{},{0,10.0},{},0,2,6},
+        {"enhanced_cloudscapes/top_anvil",1,{},"Top Anvil",{},{0,10.0},{},0,2,6},
+
+        {"enhanced_cloudscapes/light_attenuation",1,{},"Light Attenuation",{},{0,10.0},{},0,2,7},
+        {"enhanced_cloudscapes/sun_gain",1,{},"Sun Gain",{},{0,20.0},{},0,2,7},
+        {"enhanced_cloudscapes/ambient_gain",1,{},"Ambient Gain",{},{0,20.0},{},0,2,7},
+        {"enhanced_cloudscapes/mie_scattering",1,{},"Mie Scattering",{},{0,0.975},{},1,2,7},
+        {"enhanced_cloudscapes/atmosphere_bottom_tint",3,{},"Atmosphere Bottom Tint",{},{0,1.0},{},1,2,7},
+        {"enhanced_cloudscapes/atmosphere_top_tint",3,{},"Atmosphere Top Tint",{},{0,1.0},{},1,2,7},
+        {"enhanced_cloudscapes/atmospheric_blending",1,{},"Atmospheric Blending",{},{0,1.0},{},1,2,7},
+
+        {"enhanced_cloudscapes/skip_fragments",1,{},"Skip Fragments",{},{0,1},{},0,0,8},
+        {"enhanced_cloudscapes/rendering_resolution_ratio",1,{},"Rendering Resolution Ratio",{},{0,8.0},{},0,2,8},
+        {"enhanced_cloudscapes/sample_step_count",1,{},"Sample Step Count",{},{0,256},{},0,0,8},
+        {"enhanced_cloudscapes/sun_step_count",1,{},"Sun Step Count",{},{0,32},{},0,0,8},
+        {"enhanced_cloudscapes/maximum_sample_step_size",1,{},"Maximum Sample Step Size",{},{0,2500.0},{},0,2,8},
+        {"enhanced_cloudscapes/maximum_sun_step_size",1,{},"Maximum Sun Step Size",{},{0,2500.0},{},0,2,8},
+        {"enhanced_cloudscapes/use_blue_noise_dithering",1,{},"Use Blue Noise Dithering",{},{0,1},{},0,0,8}
     }
 --[[
 
