@@ -1,6 +1,6 @@
 --[[
 
-Lua module, required by AircraftHelper.lua
+Lua module, required by EnhCloudsController.lua
 Licensed under the EUPL v1.2: https://eupl.eu/
 
 ]]

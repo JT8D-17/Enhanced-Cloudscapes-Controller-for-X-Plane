@@ -1,9 +1,13 @@
 --[[ 
 
-Enhanced Clouds Controller
+Enhanced Cloudscapes Controller
 Licensed under the EUPL v1.2: https://eupl.eu/
 
-BK, xxyyzzzz
+Release for Enhanced Cloudscapes Beta 20201124: https://github.com/FarukEroglu2048/Enhanced-Cloudscapes
+
+Contributors:
+BK (JT8D-17)
+Faruk Eroglu (Biological Nanobot)
  ]]
 --[[
 
@@ -18,6 +22,7 @@ end
 require("EnhCloudsController/Lua/Log+Notify")       -- Imgui Window Element: Notifications
 require("EnhCloudsController/Lua/Settings")         -- Imgui Window Element: Settings
 require("EnhCloudsController/Lua/CloudPrefs")       -- Imgui Window Element: Cloud preferences
+require("EnhCloudsController/Lua/Menu")             -- Menu entries for the plugins menu
 --[[
 
 VARIABLES (local or global)
@@ -108,11 +113,13 @@ function ECC_Main_1sec()
         ECC_SettingsFileRead() 				-- Trigger reading the UI settings file
         ECC_CloudPrefs_Init()               -- Initialize cloud settings window
         if ECC_SettingsValGet("WindowIsOpen") == 1 then ECC_Window_Show() end -- If window open flag was true, build the window
+        ECC_Menu_Init()
         ECC_Initialized = true
         if ECC_Initialized then print("---> "..ECC_ScriptName.." initialized.") ECC_Log_Write("INIT: Finished "..ECC_ScriptName.." initialization") end
     end
 end
 do_often("ECC_Main_1sec()")
+do_on_exit("ECC_Menu_CleanUp()")
 --[[
 
 MACROS AND COMMANDS
