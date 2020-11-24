@@ -18,7 +18,7 @@ FlyWithLua-based user interface to control the "Enhanced Cloudscapes" plugin for
 &nbsp;
 
 <a name="requirements"></a>
-##1 - Requirements
+## 1 - Requirements
 
 - [X-Plane 11](https://www.x-plane.com/) (11.41 or higher)
 - [FlyWithLuaNG](https://forums.x-plane.org/index.php?/files/file/38445-flywithlua-ng-next-generation-edition-for-x-plane-11-win-lin-mac/) (2.7.28 or higher)
@@ -28,7 +28,7 @@ FlyWithLua-based user interface to control the "Enhanced Cloudscapes" plugin for
 [Back to table of contents](#toc)
 
 <a name="install"></a>
-##2 - Installation
+## 2 - Installation
 
 Copy the "Scripts" and "Modules" folders into _"X-Plane 11/Resources/plugins/FlyWithLua/"_
 
@@ -36,7 +36,7 @@ Copy the "Scripts" and "Modules" folders into _"X-Plane 11/Resources/plugins/Fly
 [Back to table of contents](#toc)
 
 <a name="uninstall"></a>
-##3 - Uninstallation
+## 3 - Uninstallation
 
 - Delete _EnhCloudsController.lua_ from _"X-Plane 11/Resources/plugins/FlyWithLua/Scripts"_
 - Delete _"EnhCloudsController"_ from _"X-Plane 11/Resources/plugins/FlyWithLua/Modules"_
@@ -45,7 +45,7 @@ Copy the "Scripts" and "Modules" folders into _"X-Plane 11/Resources/plugins/Fly
 [Back to table of contents](#toc)
 
 <a name="first"></a>
-##4 - First start
+## 4 - First start
 
 Enhanced Clouds Controller must be started manually until the _"Autosave"_ option in the _"UI Settings"_ window has been enabled.   
 After that, the visibility status of the window will be remembered and applied during each script start (or reload).
@@ -65,7 +65,7 @@ in X-Plane's keyboard settings window:
 [Back to table of contents](#toc)
 
 <a name="UI"></a>
-##5 - User Interface
+## 5 - User Interface
 
 General hints:   
 	- After having typed a value into any text/number input box, click anywhere in the Controller's window to leave it, otherwise it will keep focus, eating up all keyboard inputs (see "Known Issues" section below).   
@@ -133,7 +133,7 @@ This option may also be toggled from the _"Plugins"_ --> _"Enhanced Cloudscapes"
 [Back to table of contents](#toc)
 
 <a name="issues"></a>
-##6 - Known issues
+## 6 - Known issues
 
 - Altering a plugin parameter and reloading the Lua script will set that parameter as default.   
 Workaround: Restart X-Plane so that the plugin will be reset
@@ -145,6 +145,6 @@ This is an Imgui limitation.
 <a name="license"></a>
 [Back to table of contents](#toc)
 
-##7 - License
+## 7 - License
 
 Enhanced Cloudscapes Controller is licensed under the European Union Public License v1.2 (see _EUPL-1.2-license.txt_). Compatible licenses (e.g. GPLv3) are listed  in the section "Appendix" in the license file.
