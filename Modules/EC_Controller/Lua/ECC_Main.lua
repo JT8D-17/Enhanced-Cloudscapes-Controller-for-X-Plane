@@ -258,12 +258,12 @@ function ECC_PresetFileRead(filename)
 end
 --[[ Preset load handler ]]
 function ECC_LoadPresetVals(filename)
-    ECC_Log_Write("ECC PRESET: Started loading values from file")
+    ECC_Log_Write("ECC PRESET: Started loading values from "..filename)
     ECC_PresetFileRead(filename)                -- Read preset file
     ECC_AccessDref(ECC_DatarefTable,"write")    -- Write values to datarefs
     ECC_SubPageBuilder()                        -- Build subpage indexes
     ECC_Cld_Subpage = #ECC_SubPageAssignments   -- Limit page selection to avoid landing on a blank page
-    ECC_Log_Write("ECC PRESET: Finished loading values from file")
+    ECC_Log_Write("ECC PRESET: Finished loading values from "..filename)
 end
 --[[ 
 
@@ -282,7 +282,7 @@ function ECC_ModuleInit_Main()
         if #PresetList >= 1 then ECC_PresetLastSelected = PresetList[1] end
         if ECC_SettingsValGet("AutoLoad") == 1 then
             ECC_LastPresetFileRead()
-            if ECC_PresetLastSelected ~= PresetList[1] then ECC_LoadPresetVals(ECC_PresetLastSelected) ECC_Log_Write("ECC PRESET: Triggered loading values from file") end
+            if ECC_PresetLastSelected ~= PresetList[1] then ECC_LoadPresetVals(ECC_PresetLastSelected..".cfg") ECC_Log_Write("ECC PRESET: Triggered loading values from "..ECC_PresetLastSelected..".cfg") end
         end
     end
 end
