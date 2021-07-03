@@ -1,6 +1,6 @@
 --[[
 
-Lua Module, required by xxx.lua
+Lua Module, required by EC_Controller.lua
 Licensed under the EUPL v1.2: https://eupl.eu/
 
 ]]
