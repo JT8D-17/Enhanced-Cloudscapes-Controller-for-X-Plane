@@ -1,6 +1,6 @@
 --[[
 
-Lua Module, required by EnhCloudsController.lua
+Lua Module, required by EC_Controller.lua
 Licensed under the EUPL v1.2: https://eupl.eu/
 
 ]]
@@ -9,7 +9,7 @@ Licensed under the EUPL v1.2: https://eupl.eu/
 VARIABLES (local to this module)
 
 ]]
-local ECC_LogFile = MODULES_DIRECTORY.."EnhCloudsController/Log.txt"          -- Log file path
+local ECC_LogFile = MODULES_DIRECTORY.."EC_Controller/Log.txt"          -- Log file path
 ECC_NotificationStack = { }                     -- Array for the notification stack 
 local toremove = {}
 --[[
