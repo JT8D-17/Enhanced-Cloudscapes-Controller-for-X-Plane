@@ -25,18 +25,19 @@ FlyWithLua-based user interface to control the "Enhanced Cloudscapes" plugin for
 [FlyWithLuaNG](https://forums.x-plane.org/index.php?/files/file/38445-flywithlua-ng-next-generation-edition-for-x-plane-11-win-lin-mac/) (2.7.28 or higher)   
 [ "Enhanced Cloudscapes" plugin](https://forums.x-plane.org/index.php?/files/file/65005-enhanced-cloudscapes/) (2020.11.24 or newer)
 
-&nbsp;
 
 [Back to table of contents](#toc)
+
+&nbsp;
 
 <a name="install"></a>
 ## 2 - Installation
 
 Copy the "Scripts" and "Modules" folders into _"X-Plane 11/Resources/plugins/FlyWithLua/"_
 
-&nbsp;
-
 [Back to table of contents](#toc)
+
+&nbsp;
 
 <a name="uninstall"></a>
 ## 3 - Uninstallation
@@ -44,9 +45,9 @@ Copy the "Scripts" and "Modules" folders into _"X-Plane 11/Resources/plugins/Fly
 - Delete _EC_Controller.lua_ from _"X-Plane 11/Resources/plugins/FlyWithLua/Scripts"_
 - Delete the _"EC_Controller"_ folder from _"X-Plane 11/Resources/plugins/FlyWithLua/Modules"_
 
-&nbsp;
-
 [Back to table of contents](#toc)
+
+&nbsp;
 
 <a name="first"></a>
 ## 4 - First start
@@ -67,9 +68,9 @@ Once the window is open, go into the _"UI Settings"_ menu and enable Autosaving 
 
 After that, feel free to try the included presets or attempt to create your own. See section 5.2 for descriptions of UI element functionality.
 
-&nbsp;
-
 [Back to table of contents](#toc)
+
+&nbsp;
 
 <a name="UI"></a>
 ## 5 - User Interface
@@ -82,17 +83,19 @@ Window size is saved when the "Autosave" option is activated in the _"ECC UI Set
 The EC Controller window will automatically open upon X-Plane session start if both the "Autosave" and "Autoload" option have been activated in the _"UI Settings"_ menu (see section 5.3.4 below).   
 Some UI elements have tooltips.
 
+[Back to table of contents](#toc)
+
 &nbsp;
 
-[Back to table of contents](#toc)
 <a name=mainmenu"></a>
 ###5.1 - Main Menu
 
 Click the _"Cloud Settings"_ or _"UI Settings"_ button to enter the respective menu. Each of these menus offers a _"Main Menu"_ button to immediately return.
-
-&nbsp;
  
  [Back to table of contents](#toc)
+ 
+ &nbsp;
+ 
 <a name="controller"></a>
 ###5.2 - Cloud Settings Menu
 
@@ -105,8 +108,7 @@ Pessing the _"Save"_ button activates a file name input box (with a character li
 Pressing _"OK"_ will write the current preset to file with the specified file name. __If a preset with the same file name is already present, it will be overwritten without asking for confirmation!__  The preset list for the selector will be refreshed after saving is complete. Pressing _"Cancel"_ returns to the preset selector.
 
 A preset that is picked from the selector dropdown box (except _"New Preset"_) is immediately loaded and its file name (without the file extension) is stored in `ActivePreset.cfg`.    
-When the _"Autoload"_ function from the _"UI Settings"_ or plugin menu has been activated, `ActivePreset.cfg` is read at EC Controller start and the preset matching the filename stored in it is being loaded if the corresponding preset file can be found (otherwise default values will be used).   
-
+When the _"Autoload"_ function from the _"UI Settings"_ or plugin menu has been activated, `ActivePreset.cfg` is read at EC Controller start and the preset matching the filename stored in it is being loaded if the corresponding preset file can be found (otherwise default values will be used).
 
 &nbsp;
 
@@ -133,9 +135,9 @@ _"Lower/Upper Raw Value Limit"_ can be used to narrow or broaden the available r
 _"Display Precision"_ accepts integer (i.e. whole number) inputs and controls the decimals displayed in the control elements for the parameter. It will auto-reset to "1" (percentage) and "6" (numerical) when the  _"Switch Display To [Numerical/Percentage]"_ button is pressed.   
 _"Display In Group"_ controls the group assignment for the parameter and accepts integer (whole number) values. This can be used to move the parameter to any present or new group and offers a way to reorder the groups to one's liking. Applying any changes that were made to advanced parameters requires pressing the _"Apply"_ button.
 
-&nbsp;
-
 [Back to table of contents](#toc)
+
+&nbsp;
 
 <a name="settings"></a>
 ### 5.3 - UI Settings Menu
@@ -179,9 +181,10 @@ The _"Save UI Settings"_, _"Load UI Settings"_ and _"Delete UI Settings"_ button
 
 The path to the settings file is: `FlyWithLua/Modules/EC_Controller/UI_Prefs.cfg`. Altering it requires editing the script source and is therefore not recommended.    
 
-&nbsp;
-
 [Back to table of contents](#toc)
+
+
+&nbsp;
 
 <a name="issues"></a>
 ## 6 - Known issues
@@ -192,11 +195,15 @@ Workaround: Restart X-Plane so that the plugin will be reset
 This is an Imgui limitation. Click anywhere into the window (except for another input field) to unfocus.   
 - The main _"Enhanced Cloudscapes"_ menu item in the "Plugins" menu will not be removed if you reload all Lua script files in FlyWithLua.
 
+[Back to table of contents](#toc)
+
+
 &nbsp;
 
 <a name="license"></a>
-[Back to table of contents](#toc)
-
 ## 7 - License
 
 Enhanced Cloudscapes Controller is licensed under the European Union Public License v1.2 (see _EUPL-1.2-license.txt_). Compatible licenses (e.g. GPLv3) are listed  in the section "Appendix" in the license file.
+
+
+[Back to table of contents](#toc)
