@@ -87,7 +87,7 @@ Some UI elements have tooltips.
 
 &nbsp;
 
-<a name=mainmenu"></a>
+<a name="mainmenu"></a>
 ### 5.1 - Main Menu
 
 Click the _"Cloud Settings"_ or _"UI Settings"_ button to enter the respective menu. Each of these menus offers a _"Main Menu"_ button to immediately return.
