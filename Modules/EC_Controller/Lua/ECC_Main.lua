@@ -43,7 +43,7 @@ local function ECC_LastPresetFileRead()
             i = i+1
         end
         file:close()
-        print(ECC_PresetLastSelected)
+        --print(ECC_PresetLastSelected)
         --if i ~= nil and i > 0 then ECC_Notification("FILE READ SUCCESS: "..inputfile,"Success","log") else ECC_Notification("FILE READ ERROR: "..inputfile,"Error","log") end
     end
 end

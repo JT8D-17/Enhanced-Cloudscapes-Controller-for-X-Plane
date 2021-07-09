@@ -12,7 +12,7 @@ FlyWithLua-based user interface to control the "Enhanced Cloudscapes" plugin for
 5. [User Interface](#UI)
 	1. [Main Menu](#controller)
 	2. [Cloud Settings Menu](#controller)
-	3. [UI Settings Menu](#settings)
+	3. [UI Settings Menu](#uisettings)
 6. [Known Issues](#issues)
 7. [License](#license)
 
@@ -80,7 +80,7 @@ General hints:
 After having typed a value into any text/number input box, click anywhere in the Controller's window to leave it, otherwise it will keep focus, eating up all keyboard inputs (see "Known Issues" section below).   
 Undesired values in text/number input boxes that were just entered can be discarded  by pressing the "ESC" key.  
 Window size is saved when the "Autosave" option is activated in the _"ECC UI Settings"_ window.    
-The EC Controller window will automatically open upon X-Plane session start if both the "Autosave" and "Autoload" option have been activated in the _"UI Settings"_ menu (see section 5.3.4 below).   
+The EC Controller window will automatically open upon X-Plane session start if both the "Autosave" and "Autoload" option have been activated in the _"UI Settings"_ menu (see section 5.3.3 below).   
 Some UI elements have tooltips.
 
 [Back to table of contents](#toc)
@@ -139,24 +139,17 @@ _"Display In Group"_ controls the group assignment for the parameter and accepts
 
 &nbsp;
 
-<a name="settings"></a>
+<a name="uisettings"></a>
 ### 5.3 - UI Settings Menu
 
-**5.3.1 - Navigation**
-
-This menu can be accessed with the _"UI Settings"_ button.   
-The _"Back"_ button leads back to the start screen.
-
-&nbsp;
-
-**5.3.2 - Notification settings**
+**5.3.1 - Notification settings**
 
 "Notification display time" accepts integer (i.e. whole number) values and controls the time in seconds, for which notifications in the notification area below the main window content is displayed.
 
 &nbsp;
 
 
-**5.3.3 - Window hotkey control**
+**5.3.2 - Window hotkey control**
 
  _"[Enable/Disable] Window Toggling by Hotkey"_ toggles the hotkey activation mode for the main window, independent of which key was set for this in X-Plane's keyboard settings.    
 The "Keyboard Key Code" field accepts integer (whole number) values and determines the key that will toggle the ECC window's visibility. The default keycode is 85, i.e. "u".    
@@ -164,25 +157,24 @@ A key (combination) to toggle the Window may always be set in X-Plane's keyboard
 	
 &nbsp;
 	
-**5.3.4 - Autosave/Autoload**
+**5.3.3 - Autosave/Autoload**
 
  _"[Enable/Disable] Autosave"_ saves __EC Controller's UI settings__ settings immediately to file when activated, including window size and position and will then autosave when another setting has been changed. Does not affect the plugin parameters!    
  _"[Enable/Disable] Autoload"_ autoloads all __Controller window settings and the cloud preset__ upon script start (when starting an X-Plane session). This option may also be toggled from the _"Plugins"_ --> _"Enhanced Cloudscapes"_ --> _"Autoload Settings"_ menu item.
 
 &nbsp;
 
-**5.3.5 - Manual UI settings file management**
+**5.3.4 - Manual UI settings file management**
 
 The _"Save UI Settings"_, _"Load UI Settings"_ and _"Delete UI Settings"_ buttons are self-explanatory and __only affect EC Controller's UI settings file, not the currently active cloud preset__
 
 &nbsp;
 	
-**5.3.6 - UI settings file location**
+**5.3.5 - UI settings file location**
 
 The path to the settings file is: `FlyWithLua/Modules/EC_Controller/UI_Prefs.cfg`. Altering it requires editing the script source and is therefore not recommended.    
 
 [Back to table of contents](#toc)
-
 
 &nbsp;
 
