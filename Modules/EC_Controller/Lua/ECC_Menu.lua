@@ -39,18 +39,18 @@ MENU INITALIZATION AND CLEANUP
 
 ]]
 --[[ Variables for FFI ]]
-local Menu_ID = nil
 local Menu_Pointer = ECC_ffi.new("const char")
 --[[ Menu initialization ]]
 function ECC_Menu_Init()
     if ECC_XPLM ~= nil then
-        Menu_ID = ECC_XPLM.XPLMCreateMenu(Menu_Name,nil,0, function(inMenuRef,inItemRef) Menu_Callback(inItemRef) end,ECC_ffi.cast("void *",Menu_Pointer))
+        ECC_Menu_Index = ECC_XPLM.XPLMAppendMenuItem(ECC_XPLM.XPLMFindPluginsMenu(),Menu_Name,ECC_ffi.cast("void *","None"),1)
+        ECC_Menu_ID = ECC_XPLM.XPLMCreateMenu(Menu_Name,ECC_XPLM.XPLMFindPluginsMenu(),ECC_Menu_Index, function(inMenuRef,inItemRef) Menu_Callback(inItemRef) end,ECC_ffi.cast("void *",Menu_Pointer))
         for i=1,#Menu_Items do
             if Menu_Items[i] ~= "[Separator]" then
                 Menu_Pointer = Menu_Items[i]
-                Menu_Indices[i] = ECC_XPLM.XPLMAppendMenuItem(Menu_ID,Menu_Items[i],ECC_ffi.cast("void *",Menu_Pointer),1)
+                Menu_Indices[i] = ECC_XPLM.XPLMAppendMenuItem(ECC_Menu_ID,Menu_Items[i],ECC_ffi.cast("void *",Menu_Pointer),1)
             else
-                ECC_XPLM.XPLMAppendMenuSeparator(Menu_ID)
+                ECC_XPLM.XPLMAppendMenuSeparator(ECC_Menu_ID)
             end
         end
         ECC_Menu_Watchdog(1)        -- Watchdog for menu item 1
@@ -60,8 +60,7 @@ function ECC_Menu_Init()
 end
 --[[ Menu cleanup upon script reload or session exit ]]
 function ECC_Menu_CleanUp()
-   ECC_XPLM.XPLMClearAllMenuItems(ECC_XPLM.XPLMFindPluginsMenu())
-   --ECC_XPLM.XPLMDestroyMenu(Menu_ID)
+   ECC_XPLM.XPLMRemoveMenuItem(ECC_XPLM.XPLMFindPluginsMenu(),ECC_Menu_Index)
 end
 --[[
 
@@ -70,16 +69,16 @@ MENU MANIPULATION WRAPPERS
 ]]
 --[[ Menu item name change ]]
 local function ECC_Menu_ChangeItemPrefix(index,prefix)
-    ECC_XPLM.XPLMSetMenuItemName(Menu_ID,index-1,prefix.." "..Menu_Items[index],1)
+    ECC_XPLM.XPLMSetMenuItemName(ECC_Menu_ID,index-1,prefix.." "..Menu_Items[index],1)
 end
 --[[ Menu item check status change ]]
 function ECC_Menu_CheckItem(index,state)
     index = index - 1
     local out = ECC_ffi.new("XPLMMenuCheck[1]")
-    ECC_XPLM.XPLMCheckMenuItemState(Menu_ID,index-1,ECC_ffi.cast("XPLMMenuCheck *",out))
-    if tonumber(out[0]) == 0 then ECC_XPLM.XPLMCheckMenuItem(Menu_ID,index,1) end
-    if state == "Activate" and tonumber(out[0]) ~= 2 then ECC_XPLM.XPLMCheckMenuItem(Menu_ID,index,2)
-    elseif state == "Deactivate" and tonumber(out[0]) ~= 1 then ECC_XPLM.XPLMCheckMenuItem(Menu_ID,index,1)
+    ECC_XPLM.XPLMCheckMenuItemState(ECC_Menu_ID,index-1,ECC_ffi.cast("XPLMMenuCheck *",out))
+    if tonumber(out[0]) == 0 then ECC_XPLM.XPLMCheckMenuItem(ECC_Menu_ID,index,1) end
+    if state == "Activate" and tonumber(out[0]) ~= 2 then ECC_XPLM.XPLMCheckMenuItem(ECC_Menu_ID,index,2)
+    elseif state == "Deactivate" and tonumber(out[0]) ~= 1 then ECC_XPLM.XPLMCheckMenuItem(ECC_Menu_ID,index,1)
     end
 end
 --[[ Watchdog to track window state changes ]]
@@ -93,4 +92,3 @@ function ECC_Menu_Watchdog(index)
         elseif ECC_SettingsValGet("AutoLoad") == 1 then ECC_Menu_CheckItem(index,"Activate") end
     end
 end
-

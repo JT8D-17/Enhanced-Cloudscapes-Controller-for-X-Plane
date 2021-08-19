@@ -38,6 +38,8 @@ local ECC_PageInitStatus = 0        -- Has the window been initialized?
 ECC_Check_Autoload = false          -- Enables check of the autoloading condition
 ECC_Window_Pos={0,0}                -- Window position x,y
 ECC_ImguiColors={0x33FFAE00,0xBBFFAE00,0xFFC8C8C8,0xFF0000FF,0xFF19CF17,0xFFB6CDBA,0xFF40aee5} -- Imgui: Control elements passive, control elements active, text, negative, positive, neutral, caution
+ECC_Menu_ID = nil                   -- ID of the main ECC menu
+ECC_Menu_Index = nil                -- Index of the ECC menu in the plugins menu
 --[[
 
 INITIALIZATION

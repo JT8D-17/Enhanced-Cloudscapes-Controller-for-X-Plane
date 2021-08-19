@@ -181,11 +181,11 @@ The path to the settings file is: `FlyWithLua/Modules/EC_Controller/UI_Prefs.cfg
 <a name="issues"></a>
 ## 6 - Known issues
 
+- If you reload all FlyWithLua scripts, an empty "Enhanced Cloudscapes" menu may be left over in the plugins menu or the "FlyWithLua" menu may disappear. In both cases, restart X-Plane.
 - Altering a plugin parameter and reloading the Lua script will set that parameter as default.   
 Workaround: Restart X-Plane so that the plugin will be reset
 - Input boxes will not let go of focus upon pressing "Enter".  
 This is an Imgui limitation. Click anywhere into the window (except for another input field) to unfocus.   
-- The main _"Enhanced Cloudscapes"_ menu item in the "Plugins" menu will not be removed if you reload all Lua script files in FlyWithLua.
 
 [Back to table of contents](#toc)
 
