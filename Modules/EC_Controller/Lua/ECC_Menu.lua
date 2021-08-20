@@ -60,6 +60,8 @@ function ECC_Menu_Init()
 end
 --[[ Menu cleanup upon script reload or session exit ]]
 function ECC_Menu_CleanUp()
+   ECC_XPLM.XPLMClearAllMenuItems(ECC_Menu_ID)
+   ECC_XPLM.XPLMDestroyMenu(ECC_Menu_ID)
    ECC_XPLM.XPLMRemoveMenuItem(ECC_XPLM.XPLMFindPluginsMenu(),ECC_Menu_Index)
 end
 --[[
