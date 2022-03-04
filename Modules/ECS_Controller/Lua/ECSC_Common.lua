@@ -1,6 +1,6 @@
 --[[
 
-Lua Module, required by EC_Controller.lua
+Lua Module, required by ECS_Controller.lua
 Licensed under the EUPL v1.2: https://eupl.eu/
 
 ]]
@@ -9,28 +9,29 @@ Licensed under the EUPL v1.2: https://eupl.eu/
 VARIABLES (local to this module)
 
 ]]
-ECC_PageDB = {}                 -- Subpage database, generated at initialization
+ECSC_PageDB = {}                 -- Subpage database, generated at initialization
 --[[
 
 MODULES
 
 ]]
-ECC_XPLM = nil                              -- Define namespace for XPLM library
+ECSC_XPLM = nil                              -- Define namespace for XPLM library
+
 --[[ Load XPLM library ]]
-ECC_Log_Write(string.format("FFI XPLM: Operating system is: %s",ECC_ffi.os))
-if SYSTEM == "IBM" then ECC_XPLM = ECC_ffi.load("XPLM_64")  -- Windows 64bit
-    elseif SYSTEM == "LIN" then ECC_XPLM = ECC_ffi.load("Resources/plugins/XPLM_64.so")  -- Linux 64bit (Requires "Resources/plugins/" for some reason)
-    elseif SYSTEM == "APL" then ECC_XPLM = ECC_ffi.load("Resources/plugins/XPLM.framework/XPLM") -- 64bit MacOS (Requires "Resources/plugins/" for some reason)
+ECSC_Log_Write(string.format("FFI XPLM: Operating system is: %s",ECSC_ffi.os))
+if SYSTEM == "IBM" then ECSC_XPLM = ECSC_ffi.load("XPLM_64")  -- Windows 64bit
+    elseif SYSTEM == "LIN" then ECSC_XPLM = ECSC_ffi.load("Resources/plugins/XPLM_64.so")  -- Linux 64bit (Requires "Resources/plugins/" for some reason)
+    elseif SYSTEM == "APL" then ECSC_XPLM = ECSC_ffi.load("Resources/plugins/XPLM.framework/XPLM") -- 64bit MacOS (Requires "Resources/plugins/" for some reason)
     else return
 end
-if ECC_XPLM ~= nil then ECC_Log_Write("FFI XPLM: Initialized!") end
+if ECSC_XPLM ~= nil then ECSC_Log_Write("FFI XPLM: Initialized!") end
 --[[
 
 C DEFINITIONS AND VARIABLES
 
 ]]
 --[[ Add C definitions to FFI ]]
-ECC_ffi.cdef([[
+ECSC_ffi.cdef([[
     /* XPLMUtilities*/
     typedef void *XPLMCommandRef;
     /* XPLMMenus */
@@ -61,25 +62,25 @@ FUNCTIONS
 
 ]]
 --[[ Refresh page database ]]
-function ECC_Refresh_PageDB(intitle)
-    --print(ECC_ScriptName..": Updating window page database")
-    ECC_PageDB[#ECC_PageDB+1] = {}
-    ECC_PageDB[#ECC_PageDB][1] = intitle
-    ECC_PageDB[#ECC_PageDB][2] = #ECC_PageDB
-    --for i=1,#ECC_PageDB do
-       --print(ECC_ScriptName..": "..table.concat(ECC_PageDB[i]," : "))
+function ECSC_Refresh_PageDB(intitle)
+    --print(ECSC_ScriptName..": Updating window page database")
+    ECSC_PageDB[#ECSC_PageDB+1] = {}
+    ECSC_PageDB[#ECSC_PageDB][1] = intitle
+    ECSC_PageDB[#ECSC_PageDB][2] = #ECSC_PageDB
+    --for i=1,#ECSC_PageDB do
+       --print(ECSC_ScriptName..": "..table.concat(ECSC_PageDB[i]," : "))
     --end
 end
 --[[ Find page number by title ]]
-function ECC_PageNumGet(intitle)
+function ECSC_PageNumGet(intitle)
     local result
-    for i=1,#ECC_PageDB do
-      if ECC_PageDB[i][1] == intitle then result = ECC_PageDB[i][2] end
+    for i=1,#ECSC_PageDB do
+      if ECSC_PageDB[i][1] == intitle then result = ECSC_PageDB[i][2] end
     end
     return result
 end
 --[[ Displays a tooltip ]]
-function ECC_ItemTooltip(string)
+function ECSC_ItemTooltip(string)
     if imgui.IsItemActive() or imgui.IsItemHovered() then
         imgui.BeginTooltip()
         imgui.PushTextWrapPos(imgui.GetFontSize() * 30)
@@ -90,7 +91,7 @@ function ECC_ItemTooltip(string)
 end
 
 --[[ Gets a list of files from a directory using the specified filter and outputs them to a table ]]
-function ECC_GetFileList(inputdir,outputtable,filter)
+function ECSC_GetFileList(inputdir,outputtable,filter)
     local resfile = nil
     if SYSTEM == "IBM" then resfile = io.popen('dir "'..inputdir..'" /b')
     elseif SYSTEM == "LIN" then resfile = io.popen('ls -AU1N "'..inputdir..'"')

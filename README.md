@@ -1,5 +1,15 @@
-# Enhanced Cloudscapes Controller
-FlyWithLua-based user interface to control the "Enhanced Cloudscapes" plugin for X-Plane 11. Offers real-time editing, presets and persistence for plugin datarefs.
+# Enhanced Cloud-/Skyscapes Controller
+FlyWithLua-based user interface to control the "Enhanced Cloudscapes" or "Enhanced Skyscapes" plugins for X-Plane 11. Offers real-time editing, presets and persistence for plugin datarefs.
+
+&nbsp;
+
+**As of March 4th, 2022, the tool is now called "Enhanced Cloud-/Skyscapes Controller" and supports both Enhanced Cloudscapes and Enhanced Skyscapes.**
+
+**Preset files must be renamed to `ECSC_[Yourpresetname].cfg` (instead of `EC_[Yourpresetname].cfg`; see included example files) and now support storing values for both EC and ES.**
+
+**Upgrade instructions:   
+Back up your custom presets and rename them as instructed, then delete the old _EC_Controller.lua_ script from _"X-Plane 11/Resources/plugins/FlyWithLua"/Scripts_ and the _"EC_Controller"_ folder from _"X-Plane 11/Resources/plugins/FlyWithLua/Modules"_.   
+After that, install ECSC as per the instructions below and restore your custom presets.**
 
 &nbsp;
 
@@ -23,7 +33,9 @@ FlyWithLua-based user interface to control the "Enhanced Cloudscapes" plugin for
 
 [X-Plane 11](https://www.x-plane.com/) (11.41 or higher)   
 [FlyWithLuaNG](https://forums.x-plane.org/index.php?/files/file/38445-flywithlua-ng-next-generation-edition-for-x-plane-11-win-lin-mac/) (2.7.28 or higher)   
-[ "Enhanced Cloudscapes" plugin](https://forums.x-plane.org/index.php?/files/file/65005-enhanced-cloudscapes/) (2020.11.24 or newer)
+[ "Enhanced Cloudscapes" plugin](https://forums.x-plane.org/index.php?/files/file/65005-enhanced-cloudscapes/) (2020.11.24 or newer)   
+or   
+[ Enhanced Skyscapes  plugin](https://store.thresholdx.net/products/enhanced-skyscapes) (demo or unlocked version)
 
 
 [Back to table of contents](#toc)
@@ -33,7 +45,7 @@ FlyWithLua-based user interface to control the "Enhanced Cloudscapes" plugin for
 <a name="install"></a>
 ## 2 - Installation
 
-Copy the "Scripts" and "Modules" folders into _"X-Plane 11/Resources/plugins/FlyWithLua/"_
+Copy the "Scripts" and "Modules" folders into _"X-Plane 11/Resources/plugins/FlyWithLua"_
 
 [Back to table of contents](#toc)
 
@@ -42,8 +54,8 @@ Copy the "Scripts" and "Modules" folders into _"X-Plane 11/Resources/plugins/Fly
 <a name="uninstall"></a>
 ## 3 - Uninstallation
 
-- Delete _EC_Controller.lua_ from _"X-Plane 11/Resources/plugins/FlyWithLua/Scripts"_
-- Delete the _"EC_Controller"_ folder from _"X-Plane 11/Resources/plugins/FlyWithLua/Modules"_
+- Delete _ECS_Controller.lua_ from _"X-Plane 11/Resources/plugins/FlyWithLua/Scripts"_
+- Delete the _"ECS_Controller"_ folder from _"X-Plane 11/Resources/plugins/FlyWithLua/Modules"_
 
 [Back to table of contents](#toc)
 
@@ -52,16 +64,16 @@ Copy the "Scripts" and "Modules" folders into _"X-Plane 11/Resources/plugins/Fly
 <a name="first"></a>
 ## 4 - First start
 
-Enhanced Clouds Controller must be started manually until the _"Autosave"_ option in the _"UI Settings"_ window has been enabled.   
+Enhanced Cloud-/Skyscape Controller must be started manually until the _"Autosave"_ option in the _"UI Settings"_ window has been enabled.   
 After that, the visibility status of the window will be remembered and applied during each script start (or reload).
 
-Start ECC...   
-...from X-Plane's _"Plugins"_ menu with  _"Enhanced Cloudscapes"_ --> _"Open Controller Window"_.    
+Start ECSC...   
+...from X-Plane's _"Plugins"_ menu with  _"Enhanced Cloud-/Skyscapes"_ --> _"Open Controller Window"_.    
 or    
-...from X-Plane's _"Plugins"_ menu with _"FlyWithLua"_ --> _"FlyWithLua Macros"_ --> _"Enhanced Cloudscapes Controller: Toggle Window"_.    
+...from X-Plane's _"Plugins"_ menu with _"FlyWithLua"_ --> _"FlyWithLua Macros"_ --> _"Enhanced Cloud-/Skyscapes Controller: Toggle Window"_.    
 or    
 ...by assigning a keyboard shortcut for 
-_"Enhanced Cloudscapes Controller/Window/Toggle Window"_
+_"Enhanced Cloud-/Skyscapes Controller/Window/Toggle Window"_
 in X-Plane's keyboard settings window.
 
 Once the window is open, go into the _"UI Settings"_ menu and enable Autosaving and Autoloading (see section 5.3.4).
@@ -79,8 +91,8 @@ General hints:
 
 After having typed a value into any text/number input box, click anywhere in the Controller's window to leave it, otherwise it will keep focus, eating up all keyboard inputs (see "Known Issues" section below).   
 Undesired values in text/number input boxes that were just entered can be discarded  by pressing the "ESC" key.  
-Window size is saved when the "Autosave" option is activated in the _"ECC UI Settings"_ window.    
-The EC Controller window will automatically open upon X-Plane session start if both the "Autosave" and "Autoload" option have been activated in the _"UI Settings"_ menu (see section 5.3.3 below).   
+Window size is saved when the "Autosave" option is activated in the _"ECSC UI Settings"_ window.    
+The ECSC window will automatically open upon X-Plane session start if both the "Autosave" and "Autoload" option have been activated in the _"UI Settings"_ menu (see section 5.3.3 below).   
 Some UI elements have tooltips.
 
 [Back to table of contents](#toc)
@@ -90,7 +102,7 @@ Some UI elements have tooltips.
 <a name="mainmenu"></a>
 ### 5.1 - Main Menu
 
-Click the _"Cloud Settings"_ or _"UI Settings"_ button to enter the respective menu. Each of these menus offers a _"Main Menu"_ button to immediately return.
+Click the _"Cloud/Sky Settings"_ or _"UI Settings"_ button to enter the respective menu. Each of these menus offers a _"Main Menu"_ button to immediately return.
  
  [Back to table of contents](#toc)
  
@@ -101,7 +113,7 @@ Click the _"Cloud Settings"_ or _"UI Settings"_ button to enter the respective m
 
 **5.2.1 - Presets**
 
-The latest release of EC Controller features support for multiple presets, which are stored in `FlyWithLua/Modules/EC_Controller` and __must__ be prefixed with "EC_Preset", e.g. `EC_Preset_HighDetail.cfg`.    
+The latest release of ECSC features support for multiple presets, which are stored in `FlyWithLua/Modules/ECSC_Controller` and __must__ be prefixed with "ECSC_Preset", e.g. `ECSC_Preset_HighDetail.cfg`.    
 Scanning for presets is performed at script start, but in case a manual rescan is required, there is a _"Rescan"_ button in the UI.
 
 Pessing the _"Save"_ button activates a file name input box (with a character limit of 30!) and a _"OK"_ and _"Cancel"_ button.    
@@ -152,27 +164,27 @@ _"Display In Group"_ controls the group assignment for the parameter and accepts
 **5.3.2 - Window hotkey control**
 
  _"[Enable/Disable] Window Toggling by Hotkey"_ toggles the hotkey activation mode for the main window, independent of which key was set for this in X-Plane's keyboard settings.    
-The "Keyboard Key Code" field accepts integer (whole number) values and determines the key that will toggle the ECC window's visibility. The default keycode is 85, i.e. "u".    
-A key (combination) to toggle the Window may always be set in X-Plane's keyboard settings (_"Enhanced Cloudscapes Controller"_ section).
+The "Keyboard Key Code" field accepts integer (whole number) values and determines the key that will toggle the ECSC window's visibility. The default keycode is 85, i.e. "u".    
+A key (combination) to toggle the Window may always be set in X-Plane's keyboard settings (_"Enhanced Cloud-/Skyscapes Controller"_ section).
 	
 &nbsp;
 	
 **5.3.3 - Autosave/Autoload**
 
- _"[Enable/Disable] Autosave"_ saves __EC Controller's UI settings__ settings immediately to file when activated, including window size and position and will then autosave when another setting has been changed. Does not affect the plugin parameters!    
- _"[Enable/Disable] Autoload"_ autoloads all __Controller window settings and the cloud preset__ upon script start (when starting an X-Plane session). This option may also be toggled from the _"Plugins"_ --> _"Enhanced Cloudscapes"_ --> _"Autoload Settings"_ menu item.
+ _"[Enable/Disable] Autosave"_ saves __ECS Controller's UI settings__ settings immediately to file when activated, including window size and position and will then autosave when another setting has been changed. Does not affect the plugin parameters!    
+ _"[Enable/Disable] Autoload"_ autoloads all __Controller window settings and the cloud preset__ upon script start (when starting an X-Plane session). This option may also be toggled from the _"Plugins"_ --> _"Enhanced Cloud-/Skyscapes"_ --> _"Autoload Settings"_ menu item.
 
 &nbsp;
 
 **5.3.4 - Manual UI settings file management**
 
-The _"Save UI Settings"_, _"Load UI Settings"_ and _"Delete UI Settings"_ buttons are self-explanatory and __only affect EC Controller's UI settings file, not the currently active cloud preset__
+The _"Save UI Settings"_, _"Load UI Settings"_ and _"Delete UI Settings"_ buttons are self-explanatory and __only affect ECS Controller's UI settings file, not the currently active cloud preset__
 
 &nbsp;
 	
 **5.3.5 - UI settings file location**
 
-The path to the settings file is: `FlyWithLua/Modules/EC_Controller/UI_Prefs.cfg`. Altering it requires editing the script source and is therefore not recommended.    
+The path to the settings file is: `FlyWithLua/Modules/ECS_Controller/UI_Prefs.cfg`. Altering it requires editing the script source and is therefore not recommended.    
 
 [Back to table of contents](#toc)
 
@@ -181,7 +193,7 @@ The path to the settings file is: `FlyWithLua/Modules/EC_Controller/UI_Prefs.cfg
 <a name="issues"></a>
 ## 6 - Known issues
 
-- If you reload all FlyWithLua scripts, an empty "Enhanced Cloudscapes" menu may be left over in the plugins menu or the "FlyWithLua" menu may disappear. In both cases, restart X-Plane.
+- If you reload all FlyWithLua scripts, an empty "Enhanced Cloud-/Skyscapes" menu may be left over in the plugins menu or the "FlyWithLua" menu may disappear. In both cases, restart X-Plane.
 - Altering a plugin parameter and reloading the Lua script will set that parameter as default.   
 Workaround: Restart X-Plane so that the plugin will be reset
 - Input boxes will not let go of focus upon pressing "Enter".  
@@ -195,7 +207,7 @@ This is an Imgui limitation. Click anywhere into the window (except for another 
 <a name="license"></a>
 ## 7 - License
 
-Enhanced Cloudscapes Controller is licensed under the European Union Public License v1.2 (see _EUPL-1.2-license.txt_). Compatible licenses (e.g. GPLv3) are listed  in the section "Appendix" in the license file.
+Enhanced Cloud-/Skyscapes Controller is licensed under the European Union Public License v1.2 (see _EUPL-1.2-license.txt_). Compatible licenses (e.g. GPLv3) are listed  in the section "Appendix" in the license file.
 
 
 [Back to table of contents](#toc)

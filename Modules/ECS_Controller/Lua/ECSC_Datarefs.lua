@@ -1,6 +1,6 @@
 --[[
 
-Lua Module, required by EC_Controller.lua
+Lua Module, required by ECS_Controller.lua
 Licensed under the EUPL v1.2: https://eupl.eu/
 
 ]]
@@ -9,9 +9,9 @@ Licensed under the EUPL v1.2: https://eupl.eu/
 VARIABLES
 
 ]]
-ECC_Cld_PluginInstalled = false   -- Check if cloud plugin is installed
+ECSC_PluginInstalled = false   -- Check if cloud plugin is installed
 -- Dataref table content: "1: Dref name",2: Dref size,{3: Dref value(s)},"4: Dref title",{5: Dref default values},{6: Dref value range},{7: Copy of dref value range},8: Display mode (numeric/percent),9:Display precision,10: Sub page group
-ECC_DatarefTable = {
+ECSC_DatarefTable = {
         {"enhanced_cloudscapes/cloud_map_scale",1,{},"Cloud Map Scale",{},{0,0.000025},{},0,8,1},
         {"enhanced_cloudscapes/base_noise_scale",1,{},"Base Noise Scale",{},{0,0.00025},{},0,8,1},
         {"enhanced_cloudscapes/detail_noise_scale",1,{},"Detail Noise Scale",{},{0,0.0025},{},0,6,1},
@@ -62,7 +62,19 @@ ECC_DatarefTable = {
         {"enhanced_cloudscapes/sun_step_count",1,{},"Sun Step Count",{},{0,32},{},0,0,8},
         {"enhanced_cloudscapes/maximum_sample_step_size",1,{},"Maximum Sample Step Size",{},{50,2500.0},{},0,2,8},
         {"enhanced_cloudscapes/maximum_sun_step_size",1,{},"Maximum Sun Step Size",{},{50,2500.0},{},0,2,8},
-        {"enhanced_cloudscapes/use_blue_noise_dithering",1,{},"Use Blue Noise Dithering",{},{0,1},{},0,0,8}
+        {"enhanced_cloudscapes/use_blue_noise_dithering",1,{},"Use Blue Noise Dithering",{},{0,1},{},0,0,8},
+
+        {"enhanced_skyscapes/clouds/ambient_gain",1,{},"Ambient Gain",{},{0,1.0},{},0,2,2},
+        {"enhanced_skyscapes/clouds/base_noise_scale",1,{},"Base Noise Scale",{},{0,1.0},{},0,6,1},
+        {"enhanced_skyscapes/clouds/cloud_map_scale",1,{},"Cloud Map Scale",{},{0,1.0},{},0,5,1},
+        {"enhanced_skyscapes/clouds/detail_noise_scale",1,{},"Detail Noise Scale",{},{0,1.0},{},0,5,1},
+        {"enhanced_skyscapes/clouds/draw",1,{},"Draw Clouds",{},{0,1},{},0,1,3},
+        {"enhanced_skyscapes/clouds/maximum_drawing_distance",1,{},"Maximum Cloud Draw Distance (m)",{},{0,1000000},{},0,0,3},
+        {"enhanced_skyscapes/clouds/minimum_shadow_transmittance",1,{},"Shadow Transmittance",{},{0,1.0},{},0,3,2},
+        {"enhanced_skyscapes/clouds/resolution_ratio",1,{},"Cloud Resolution Ratio",{},{0,1.0},{},0,2,3},
+        {"enhanced_skyscapes/clouds/skip_fragments",1,{},"Skip Fragments",{},{0,1.0},{},0,2,3},
+        {"enhanced_skyscapes/clouds/sun_gain",1,{},"Sun Gain",{},{0,1.0},{},0,2,2},
+        {"enhanced_skyscapes/sky/desaturation_ratio",1,{},"Desaturation Ratio",{},{0,1.0},{},0,2,2},
     }
 
 --[[
@@ -71,7 +83,7 @@ FUNCTIONS
 
 ]]
 --[[ Find Enhanced Cloudscape plugin datarefs and index those that are not present ]]
-function ECC_FindInopDrefs(intable)
+function ECSC_FindInopDrefs(intable)
     local FailedDrefs = {}
     for i=1,#intable do
         if XPLMFindDataRef(intable[i][1]) == nil then
@@ -79,10 +91,10 @@ function ECC_FindInopDrefs(intable)
         end
     end
     --print("ECC: Could not find datarefs in dataref table indices "..table.concat(FailedDrefs,","))
-    if #FailedDrefs ~= #intable then ECC_Cld_PluginInstalled = true end
+    if #FailedDrefs ~= #intable then ECSC_PluginInstalled = true end
 end
 --[[ Dataref accessor ]]
-function ECC_AccessDref(intable,mode)
+function ECSC_AccessDref(intable,mode)
     for i=1,#intable do
         local dref = XPLMFindDataRef(intable[i][1])
         if dref ~= nil then
@@ -115,7 +127,7 @@ function ECC_AccessDref(intable,mode)
     end
 end
 --[[ Copy default values ]]
-function ECC_CopyDefaults(intable)
+function ECSC_CopyDefaults(intable)
     for i=1,#intable do
         -- Dataref values
         for j=0,#intable[i][3] do
