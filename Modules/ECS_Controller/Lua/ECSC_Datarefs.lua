@@ -64,17 +64,17 @@ ECSC_DatarefTable = {
         {"enhanced_cloudscapes/maximum_sun_step_size",1,{},"Maximum Sun Step Size",{},{50,2500.0},{},0,2,8},
         {"enhanced_cloudscapes/use_blue_noise_dithering",1,{},"Use Blue Noise Dithering",{},{0,1},{},0,0,8},
 
-        {"enhanced_skyscapes/clouds/ambient_gain",1,{},"Ambient Gain",{},{0,1.0},{},0,2,2},
-        {"enhanced_skyscapes/clouds/base_noise_scale",1,{},"Base Noise Scale",{},{0,1.0},{},0,6,1},
-        {"enhanced_skyscapes/clouds/cloud_map_scale",1,{},"Cloud Map Scale",{},{0,1.0},{},0,5,1},
-        {"enhanced_skyscapes/clouds/detail_noise_scale",1,{},"Detail Noise Scale",{},{0,1.0},{},0,5,1},
-        {"enhanced_skyscapes/clouds/draw",1,{},"Draw Clouds",{},{0,1},{},0,1,3},
+        {"enhanced_skyscapes/clouds/ambient_gain",1,{},"Ambient Gain",{},{0,25.0},{},0,1,2},
+        {"enhanced_skyscapes/clouds/base_noise_scale",1,{},"Base Noise Scale",{},{0.000001,0.0001},{},0,7,1},
+        {"enhanced_skyscapes/clouds/cloud_map_scale",1,{},"Cloud Map Scale",{},{0.0000001,0.00001},{},0,8,1},
+        {"enhanced_skyscapes/clouds/detail_noise_scale",1,{},"Detail Noise Scale",{},{0.00001,0.001},{},0,6,1},
+        {"enhanced_skyscapes/clouds/draw",1,{},"Draw Clouds",{},{0,1},{},0,0,3},
         {"enhanced_skyscapes/clouds/maximum_drawing_distance",1,{},"Maximum Cloud Draw Distance (m)",{},{0,1000000},{},0,0,3},
         {"enhanced_skyscapes/clouds/minimum_shadow_transmittance",1,{},"Shadow Transmittance",{},{0,1.0},{},0,3,2},
         {"enhanced_skyscapes/clouds/resolution_ratio",1,{},"Cloud Resolution Ratio",{},{0,1.0},{},0,2,3},
-        {"enhanced_skyscapes/clouds/skip_fragments",1,{},"Skip Fragments",{},{0,1.0},{},0,2,3},
-        {"enhanced_skyscapes/clouds/sun_gain",1,{},"Sun Gain",{},{0,1.0},{},0,2,2},
-        {"enhanced_skyscapes/sky/desaturation_ratio",1,{},"Desaturation Ratio",{},{0,1.0},{},0,2,2},
+        {"enhanced_skyscapes/clouds/skip_fragments",1,{},"Skip Fragments",{},{0,2},{},0,0,3},
+        {"enhanced_skyscapes/clouds/sun_gain",1,{},"Sun Gain",{},{0,25},{},0,1,2},
+        {"enhanced_skyscapes/sky/desaturation_ratio",1,{},"Desaturation Ratio",{},{0,1.0},{},0,3,2},
     }
 
 --[[
