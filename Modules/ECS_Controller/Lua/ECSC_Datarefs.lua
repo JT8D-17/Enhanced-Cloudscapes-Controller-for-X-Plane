@@ -70,11 +70,15 @@ ECSC_DatarefTable = {
         {"enhanced_skyscapes/clouds/detail_noise_scale",1,{},"Detail Noise Scale",{},{0.00001,0.001},{},0,6,1},
         {"enhanced_skyscapes/clouds/draw",1,{},"Draw Clouds",{},{0,1},{},0,0,3},
         {"enhanced_skyscapes/clouds/maximum_drawing_distance",1,{},"Maximum Cloud Draw Distance (m)",{},{0,1000000},{},0,0,3},
+        {"enhanced_skyscapes/clouds/maximum_layer_count",1,{},"Maximum Number of Cloud Layers",{},{0,10},{},0,0,3},
         {"enhanced_skyscapes/clouds/minimum_shadow_transmittance",1,{},"Shadow Transmittance",{},{0,1.0},{},0,3,2},
         {"enhanced_skyscapes/clouds/resolution_ratio",1,{},"Cloud Resolution Ratio",{},{0,1.0},{},0,2,3},
         {"enhanced_skyscapes/clouds/skip_fragments",1,{},"Skip Fragments",{},{0,2},{},0,0,3},
+        {"enhanced_skyscapes/clouds/smooth_updates",1,{},"Smooth Updates",{},{0,1},{},0,0,3},
         {"enhanced_skyscapes/clouds/sun_gain",1,{},"Sun Gain",{},{0,25},{},0,1,2},
+        {"enhanced_skyscapes/clouds/update_interval",1,{},"Update Interval",{},{0,30},{},0,0,3},
         {"enhanced_skyscapes/sky/desaturation_ratio",1,{},"Desaturation Ratio",{},{0,1.0},{},0,3,2},
+        {"enhanced_skyscapes/sky/draw",1,{},"Draw Sky",{},{0,1},{},0,0,2},
     }
 
 --[[

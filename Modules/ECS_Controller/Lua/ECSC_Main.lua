@@ -149,6 +149,7 @@ function ECSC_InputElements(index,subindex,mode,displayformat)
         local changed,buffer = imgui.SliderFloat(" ##Slider num"..index..subindex,ECSC_DatarefTable[index][3][subindex],ECSC_DatarefTable[index][6][1],ECSC_DatarefTable[index][6][2],"%."..displayformat.."f")
         if changed then ECSC_DatarefTable[index][3][subindex] = buffer buffer = nil end
     end
+    ECSC_ItemTooltip("Slider value input for this dataref.")
     imgui.PopItemWidth() imgui.SameLine()
     --
     imgui.PushItemWidth(75)
@@ -160,6 +161,7 @@ function ECSC_InputElements(index,subindex,mode,displayformat)
             else ECSC_DatarefTable[index][3][subindex] = ECSC_PercentToFloat(buffer,ECSC_DatarefTable[index][6][1],ECSC_DatarefTable[index][6][2]) end
             buffer = nil
         end
+        ECSC_ItemTooltip("Input your values here.\nClick anywhere inside the ECSC window to unfocus the text box.")
         imgui.SameLine() imgui.TextUnformatted("%")
     elseif mode == 0 then
        local changed,buffer = imgui.InputFloat("##Text num"..index..subindex, ECSC_DatarefTable[index][3][subindex],ECSC_DatarefTable[index][6][1], ECSC_DatarefTable[index][6][2],"%."..ECSC_DatarefTable[index][9].."f")
@@ -169,6 +171,7 @@ function ECSC_InputElements(index,subindex,mode,displayformat)
             else ECSC_DatarefTable[index][3][subindex] = buffer end
             buffer = nil
         end
+        ECSC_ItemTooltip("Input your values here.\nClick anywhere inside the ECSC window to unfocus the text box.")
         imgui.SameLine() imgui.TextUnformatted(" ")
     end
     imgui.SameLine()
@@ -185,7 +188,7 @@ function ECSC_PresetFileWrite(filename)
     local outputfile = ECSC_PresetDirectory.."/"..filename
     ECSC_Log_Write("FILE INIT WRITE: "..outputfile)
     local file = io.open(outputfile, "w")
-    file:write("Enhanced Cloudscapes Controller preset created/updated on ",os.date("%x, %H:%M:%S"),"\n")
+    file:write("Enhanced Cloud-/Skyscapes Controller preset created/updated on ",os.date("%x, %H:%M:%S"),"\n")
     file:write("\n")
     for d=1,#ECSC_DatarefTable do
         --print("{"..ECSC_DatarefTable[d][1]..",{"..table.concat(ECSC_DatarefTable[d][3],",",0).."}}")
