@@ -3,17 +3,17 @@ FlyWithLua-based user interface to control the "Enhanced Cloudscapes" or "Enhanc
 
 &nbsp;
 
-Not developed anymore due to having moved on to X-Plane 12.
+**Not developed anymore due to having moved on to X-Plane 12.**
 
 &nbsp;
 
-**As of March 4th, 2022, the tool is now called "Enhanced Cloud-/Skyscapes Controller" and supports both Enhanced Cloudscapes and Enhanced Skyscapes.**
+As of March 4th, 2022, the tool is now called "Enhanced Cloud-/Skyscapes Controller" and supports both Enhanced Cloudscapes and Enhanced Skyscapes.
 
-**Preset files must be renamed to `ECSC_[Yourpresetname].cfg` (instead of `EC_[Yourpresetname].cfg`; see included example files) and now support storing values for both EC and ES.**
+Preset files must be renamed to `ECSC_[Yourpresetname].cfg` (instead of `EC_[Yourpresetname].cfg`; see included example files) and now support storing values for both EC and ES.
 
-**Upgrade instructions:   
+Upgrade instructions:   
 Back up your custom presets and rename them as instructed, then delete the old _EC_Controller.lua_ script from _"X-Plane 11/Resources/plugins/FlyWithLua"/Scripts_ and the _"EC_Controller"_ folder from _"X-Plane 11/Resources/plugins/FlyWithLua/Modules"_.   
-After that, install ECSC as per the instructions below and restore your custom presets.**
+After that, install ECSC as per the instructions below and restore your custom presets.
 
 &nbsp;
 
