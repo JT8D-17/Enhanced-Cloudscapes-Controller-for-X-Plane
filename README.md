@@ -3,6 +3,10 @@ FlyWithLua-based user interface to control the "Enhanced Cloudscapes" or "Enhanc
 
 &nbsp;
 
+Not developed anymore due to having moved on to X-Plane 12.
+
+&nbsp;
+
 **As of March 4th, 2022, the tool is now called "Enhanced Cloud-/Skyscapes Controller" and supports both Enhanced Cloudscapes and Enhanced Skyscapes.**
 
 **Preset files must be renamed to `ECSC_[Yourpresetname].cfg` (instead of `EC_[Yourpresetname].cfg`; see included example files) and now support storing values for both EC and ES.**
