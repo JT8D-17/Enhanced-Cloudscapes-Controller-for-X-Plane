@@ -3,7 +3,7 @@ FlyWithLua-based user interface to control the "Enhanced Cloudscapes" or "Enhanc
 
 &nbsp;
 
-**Not developed anymore due to having moved on to X-Plane 12.**
+**Not developed anymore due to having moved on to X-Plane 12. Repository archived since 2023/09/30.**
 
 &nbsp;
 
